@@ -1,3 +1,4 @@
+//Adapted from https://github.com/brianegan/flutter_architecture_samples.git
 import 'package:meta/meta.dart';
 
 enum Screen {
