@@ -2,6 +2,6 @@
 
 import 'package:flutter_app2/models/app_state.dart';
 
-AppState appReducer(AppState state, Screen screen) {
-  return state.copyWith(screen: screen);
+AppState appReducer(AppState state, action) {
+  return state.copyWith(screen: action.toSwitchTo);
 }
