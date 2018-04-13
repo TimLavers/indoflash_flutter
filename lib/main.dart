@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_app2/models/app_state.dart';
-import 'package:flutter_app2/reducers/app_state_reducer.dart';
-import 'package:flutter_app2/routes/routes.dart';
 import 'package:flutter_app2/presentation/main_screen.dart';
 import 'package:flutter_app2/presentation/word_list_selector.dart';
+import 'package:flutter_app2/reducers/app_state_reducer.dart';
+import 'package:flutter_app2/routes/routes.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
 void main() => runApp(new IndoFlash());
 
@@ -13,19 +13,20 @@ class IndoFlash extends StatelessWidget {
   //Adapted from the Flutter initial app and
   //The Flutter Architecture Samples https://github.com/brianegan/flutter_architecture_samples.git
 
-  final store = new Store<AppState>(appReducer, initialState: new AppState.showingWordList());
+  final store = new Store<AppState>(
+      appReducer, initialState: new AppState.showingWordList());
 
   @override
   Widget build(BuildContext context) {
     return new StoreProvider(
       store: store,
       child: new MaterialApp(
-        title: "IndoFlash Friday",
+        title: "IndoFlash",
         theme: new ThemeData(
           primarySwatch: indoRed,
         ),
         routes: {
-      IndoFlashRoutes.home: (context) {
+          IndoFlashRoutes.home: (context) {
             return new StoreBuilder<AppState>(
               builder: (context, store) {
                 return new MainScreen();
@@ -40,73 +41,6 @@ class IndoFlash extends StatelessWidget {
             );
           },
         },
-      ),
-    );
-  }
-
-
-
-
-//  @override
-  Widget ___build(BuildContext context) {
-    return new MaterialApp(
-      title: 'IndoFlash',
-      theme: new ThemeData(
-        primarySwatch: indoRed,
-      ),
-      home: new WordListPage(title: 'IndoFlash'),
-    );
-  }
-}
-
-class fdfdIndoFlashRoutes {
-  static final home = "/";
-  static final listSelector = "/lists";
-  static final chapterSelector = "/chapters";
-}
-
-class WordListPage extends StatefulWidget {
-  WordListPage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _WordListPageState createState() => new _WordListPageState();
-}
-
-class _WordListPageState extends State<WordListPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
-      ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
       ),
     );
   }

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/keys/keys.dart';
-import 'package:redux/redux.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:flutter_app2/presentation/main_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_app2/presentation/main_screen.dart';
 import 'package:flutter_app2/routes/routes.dart';
 
 void main() {
