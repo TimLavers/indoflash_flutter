@@ -11,10 +11,11 @@ void main() => runApp(new IndoFlash());
 
 class IndoFlash extends StatelessWidget {
   //Adapted from the Flutter initial app and
-  //The Flutter Architecture Samples https://github.com/brianegan/flutter_architecture_samples.git
+  //The Flutter Architecture Samples
+  //https://github.com/brianegan/flutter_architecture_samples.git
 
   final store = new Store<AppState>(
-      appReducer, initialState: new AppState.showingWordList());
+      appReducer, initialState: new AppState(null, Screen.word_list));
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 //Adapted from https://github.com/brianegan/flutter_architecture_samples.git
 import 'package:meta/meta.dart';
+import 'package:flutter_app2/spec/spec.dart';
 
 enum Screen {
   word_list, selecting_word_list, selecting_chapter
@@ -8,13 +9,12 @@ enum Screen {
 @immutable
 class AppState {
   final Screen screen;
+  final ChapterSpec currentChapter;
 
-  AppState({this.screen = Screen.word_list});
+  AppState(this.currentChapter, this.screen);
 
-  factory AppState.showingWordList() => new AppState(screen: Screen.word_list);
-
-  AppState copyWith({Screen screen}) {
-    return new AppState(screen: screen);
+  AppState copyWith(Screen screen) {
+    return new AppState(currentChapter,screen);
   }
 
   @override

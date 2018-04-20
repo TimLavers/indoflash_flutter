@@ -6,7 +6,7 @@ import 'package:flutter_app2/actions/actions.dart';
 main() {
   group('appReducer', () {
     test('constructor empty', () {
-      AppState state = new AppState();
+      AppState state = new AppState(null, Screen.word_list);
       SwitchStateAction action = new SwitchStateAction(Screen.selecting_chapter);
       var reduced = appReducer(state, action);
       expect(reduced.screen, Screen.selecting_chapter);
