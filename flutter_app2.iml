@@ -12,7 +12,9 @@
       <excludeFolder url="file://$MODULE_DIR$/test/actions/packages" />
       <excludeFolder url="file://$MODULE_DIR$/test/models/packages" />
       <excludeFolder url="file://$MODULE_DIR$/test/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/test/presentation/packages" />
       <excludeFolder url="file://$MODULE_DIR$/test/reducers/packages" />
+      <excludeFolder url="file://$MODULE_DIR$/test/vocab/packages" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

@@ -2,6 +2,7 @@ name: flutter_app2
 description: Another Flutter application.
 
 dependencies:
+  xml: "^3.0.0"
   meta: '>=1.1.0 <2.0.0'
   redux: ^2.0.2
   flutter_redux: '0.3.2'
