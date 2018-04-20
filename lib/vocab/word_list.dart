@@ -1,19 +1,27 @@
-import 'package:flutter_app2/vocab/word.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_app2/vocab/word.dart';
 
 class WordList {
   List<Word> words = [];
 
+  WordList.fromString(String data) {
+    List<String> lines = data.split('\n');
+    lines.forEach((line) {
+      String trimmed = line.trim();
+      if (trimmed.isNotEmpty) {
+        List<String> pair = line.split('=');
+        words.add(new Word(pair[0].trim(), pair[1].trim()));
+      }
+    });
+  }
 
   WordList.fromList(List<Word> words) {
     this.words = words;
   }
 
-// fun words(): List<Word> = words.toList()
-
   void add(Word word) {
     if (!words.contains(word)) {
-        words.add(word);
+      words.add(word);
     }
   }
 
@@ -26,17 +34,15 @@ class WordList {
       identical(this, other) ||
           other is WordList &&
               runtimeType == other.runtimeType &&
-              new  ListEquality().equals(words, other.words);
+              new ListEquality().equals(words, other.words);
 
   @override
   int get hashCode => words.length;
 
-
-
-
-//fun store(writer: Writer) {
-//val bw = BufferedWriter(writer)
-//words.forEach { bw.append("${it.word}=${it.definition}\n") }
-//bw.close()
-//}
+  String asPersistentData() {
+    String wordString(Word word) => "${word.word}=${word.definition}\n";
+    var buffer = new StringBuffer();
+    words.forEach((word) => buffer.write(wordString(word)));
+    return buffer.toString();
+  }
 }
