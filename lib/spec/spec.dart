@@ -1,7 +1,7 @@
 import 'package:xml/xml.dart' as xml;
 
 const TITLE = "Title";
-const FILE_TAG = "Title";
+const FILE_TAG = "File";
 const CHAPTER = "Chapter";
 const FAVOURITES = "Favourites";
 const WORD_LIST = "WordList";
@@ -49,4 +49,13 @@ class ChapterSpec extends Spec {
     parent.findAllElements(WORD_LIST).forEach((child) => wordLists.add(new WordListSpec.fromXml(child)));
     wordLists.add(new WordListSpec.fromString(FAVOURITES, FAVOURITES_FILE_NAME));
   }
+}
+
+class ApplicationSpec extends Spec {
+  List<ChapterSpec> chapters = [];
+  ApplicationSpec.fromXml(xml.XmlParent parent) : super.fromXml(parent) {
+    parent.findAllElements(CHAPTER).forEach((chapterNode) => chapters.add(new ChapterSpec.fromXml(chapterNode)));
+  }
+
+  ChapterSpec chapterForName(String name) => chapters.firstWhere((chapterSpec) => chapterSpec.title == name);
 }

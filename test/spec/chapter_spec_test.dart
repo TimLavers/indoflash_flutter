@@ -9,8 +9,6 @@ const XML = '''<Chapter>
 </Chapter>''';
 
 void main() {
-
-
   test('construct from XML', () {
     xml.XmlParent parent = xml.parse(XML);
     ChapterSpec spec = new ChapterSpec.fromXml(parent);
@@ -18,9 +16,9 @@ void main() {
     expect(spec.wordLists.length, 3);
     expect(spec.wordLists[0].title, 'Lesson 2');
     expect(spec.wordLists[0].fileName, 'lesson2');
-//    expect(spec.wordLists[1].title, 'Lesson 3');
-//    expect(spec.wordLists[1].fileName, 'lesson3');
-//    expect(spec.wordLists[2].title, FAVOURITES);
-//    expect(spec.wordLists[2].fileName, FAVOURITES_FILE_NAME);
+    expect(spec.wordLists[1].title, 'Lesson 3');
+    expect(spec.wordLists[1].fileName, 'lesson3');
+    expect(spec.wordLists[2].title, FAVOURITES);
+    expect(spec.wordLists[2].fileName, FAVOURITES_FILE_NAME);
   });
 }
