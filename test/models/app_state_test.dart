@@ -9,7 +9,7 @@ main() {
 //    });
 
     test('constructor with screen', () {
-      AppState state = new AppState(null, Screen.selecting_chapter);
+      AppState state = new AppState(Screen.selecting_chapter);
       expect(state.screen, Screen.selecting_chapter);
     });
 /*

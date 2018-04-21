@@ -24,7 +24,7 @@ class ChapterStructure {
   ChapterStructure._internal() {
     xml.XmlParent document = xml.parse(STRUCTURE);
     _applicationSpec = new ApplicationSpec.fromXml(document);
-    _chapter1 = applicationSpec.chapterForName("Chapter 1");
+    _chapter1 = applicationSpec.chapterForName("Lessons 1 - 10");
   }
 }
 
