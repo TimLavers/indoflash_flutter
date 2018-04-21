@@ -8,14 +8,17 @@ enum Screen {
 
 @immutable
 class AppState {
+  final ApplicationSpec applicationSpec = new ChapterStructure().applicationSpec;
   final Screen screen;
   final ChapterSpec currentChapter;
 
-  AppState(this.currentChapter, this.screen);
+  AppState(this.screen) : currentChapter = new ChapterStructure().chapter1;
 
   AppState copyWith(Screen screen) {
-    return new AppState(currentChapter,screen);
+    return new AppState.copy(currentChapter,screen);
   }
+
+  AppState.copy(this.currentChapter, this.screen);
 
   @override
   int get hashCode => screen.hashCode;

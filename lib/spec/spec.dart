@@ -1,3 +1,4 @@
+import 'package:flutter_app2/spec/setup.dart';
 import 'package:xml/xml.dart' as xml;
 
 const TITLE = "Title";
@@ -6,6 +7,26 @@ const CHAPTER = "Chapter";
 const FAVOURITES = "Favourites";
 const WORD_LIST = "WordList";
 const FAVOURITES_FILE_NAME = "favourites";
+
+class ChapterStructure {
+  static final ChapterStructure _singleton = new ChapterStructure._internal();
+  ApplicationSpec _applicationSpec;
+  ChapterSpec _chapter1;
+
+  factory ChapterStructure() {
+    return _singleton;
+  }
+
+  ApplicationSpec get applicationSpec => _applicationSpec;
+
+  ChapterSpec get chapter1 => _chapter1;
+
+  ChapterStructure._internal() {
+    xml.XmlParent document = xml.parse(STRUCTURE);
+    _applicationSpec = new ApplicationSpec.fromXml(document);
+    _chapter1 = applicationSpec.chapterForName("Chapter 1");
+  }
+}
 
 class Spec {
   String title;
