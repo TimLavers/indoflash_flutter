@@ -6,6 +6,8 @@ enum Screen {
   word_list, selecting_word_list, selecting_chapter
 }
 
+typedef void ChapterSelected(int index);
+
 @immutable
 class AppState {
   final ApplicationSpec applicationSpec = new ChapterStructure().applicationSpec;
@@ -17,6 +19,8 @@ class AppState {
   AppState copyWith(Screen screen) {
     return new AppState.copy(currentChapter,screen);
   }
+
+  AppState copyWithChapter(int chapterIndex) => new AppState.copy(applicationSpec.chapters[chapterIndex], this.screen);
 
   AppState.copy(this.currentChapter, this.screen);
 

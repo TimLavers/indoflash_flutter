@@ -7,7 +7,7 @@ main() {
   group('appReducer', () {
     test('constructor empty', () {
       AppState state = new AppState(Screen.word_list);
-      SwitchStateAction action = new SwitchStateAction(Screen.selecting_chapter);
+      ChangeScreensAction action = new ChangeScreensAction(Screen.selecting_chapter);
       var reduced = appReducer(state, action);
       expect(reduced.screen, Screen.selecting_chapter);
     });

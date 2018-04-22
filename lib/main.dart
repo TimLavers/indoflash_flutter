@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/models/app_state.dart';
+import 'package:flutter_app2/presentation/chapter_selector.dart';
 import 'package:flutter_app2/presentation/main_screen.dart';
 import 'package:flutter_app2/presentation/word_list_selector.dart';
 import 'package:flutter_app2/reducers/app_state_reducer.dart';
@@ -38,6 +39,13 @@ class IndoFlash extends StatelessWidget {
             return new StoreBuilder<AppState>(
               builder: (context, store) {
                 return new WordListSelector();
+              },
+            );
+          },
+          IndoFlashRoutes.chapterSelector: (context) {
+            return new StoreBuilder<AppState>(
+              builder: (context, store) {
+                return new ChapterSelector();
               },
             );
           },

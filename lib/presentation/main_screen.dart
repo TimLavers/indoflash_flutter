@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/keys/keys.dart';
+import 'package:flutter_app2/presentation/buttons.dart';
 import 'package:flutter_app2/routes/routes.dart';
 import 'package:flutter_app2/keys/keys.dart';
+
+const WORD_LIST_SELECTOR = 'Word List Selector';
+const MAIN_SCREEN = 'Main Screen';
 
 class MainScreen extends StatelessWidget {
   MainScreen() : super(key: IndoFlashKeys.homeScreen);
@@ -16,14 +20,18 @@ class MainScreen extends StatelessWidget {
         new Text(
               'This is some text',
       ),
-      floatingActionButton: new FloatingActionButton(
-        key: IndoFlashKeys.wordListSelectorLauncher,
-        onPressed: (){
-          Navigator.pushNamed(context, IndoFlashRoutes.listSelector);
-        },
-        tooltip: 'Word List Selector',
-        child: new Icon(Icons.account_balance),
-      ),
+      bottomNavigationBar: new BottomNavigationBar(
+          onTap: (int index) {
+            if (index == 0) {
+              Navigator.pushNamed(context, IndoFlashRoutes.listSelector);
+            } else {
+              Navigator.pushNamed(context, IndoFlashRoutes.chapterSelector);
+            }
+          },
+          items: <BottomNavigationBarItem>[
+            createWordListNavigationButton(),
+            createChapterListNavigationButton(),
+          ]),
     );
   }
 }

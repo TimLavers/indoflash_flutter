@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-import 'package:flutter_app2/models/app_state.dart';
+import 'package:flutter_app2/presentation/buttons.dart';
+import 'package:flutter_app2/presentation/main_screen.dart';
 import 'package:flutter_app2/routes/routes.dart';
 
-class  WordListSelector extends StatelessWidget {
+class WordListSelector extends StatelessWidget {
 
-  WordListSelector({Key key}) : super(key : key);
+  WordListSelector({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Word List Selector"),
+        title: new Text(WORD_LIST_SELECTOR),
       ),
       body:
       new Text(
         'This is just some text!',
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: (){
-          Navigator.pushNamed(context, IndoFlashRoutes.home);
-        },
-        tooltip: 'Main Screen',
-        child: new Icon(Icons.account_balance),
-      ),
+      bottomNavigationBar: new BottomNavigationBar(
+          onTap: (int index) {
+            if (index == 0) {
+              Navigator.pushNamed(context, IndoFlashRoutes.home);
+            } else {
+              Navigator.pushNamed(context, IndoFlashRoutes.chapterSelector);
+            }
+          },
+          items: <BottomNavigationBarItem>[
+            createHomeNavigationButton(),
+            createChapterListNavigationButton(),
+          ]),
     );
-
-
-//    return new Text("Word List Selector Screen");
   }
 }
