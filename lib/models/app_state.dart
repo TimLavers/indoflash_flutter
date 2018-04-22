@@ -16,13 +16,13 @@ class AppState {
 
   AppState(this.screen) : currentChapter = new ChapterStructure().chapter1;
 
+  AppState.copy(this.currentChapter, this.screen);
+
   AppState copyWith(Screen screen) {
     return new AppState.copy(currentChapter,screen);
   }
 
   AppState copyWithChapter(int chapterIndex) => new AppState.copy(applicationSpec.chapters[chapterIndex], this.screen);
-
-  AppState.copy(this.currentChapter, this.screen);
 
   @override
   int get hashCode => screen.hashCode;
@@ -32,10 +32,11 @@ class AppState {
       identical(this, other) ||
           other is AppState &&
               runtimeType == other.runtimeType &&
+              currentChapter == other.currentChapter &&
               screen == other.screen;
 
   @override
   String toString() {
-    return 'AppState{screen: $screen}';
+    return 'AppState{screen: $screen, chapter: ${currentChapter.title}';
   }
 }
