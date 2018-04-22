@@ -65,16 +65,20 @@ class ChaptersModel {
       _store.dispatch(new ChapterSelectedAction(index));
 }
 
-class ChapterItem extends StatelessWidget {
-  final String title;
-  final ChapterSelected callback;
-  final int index;
+Key chapterItemKey(int index) => new Key("ChapterItem:$index");
 
-  ChapterItem(this.title, this.callback, this.index);
+class ChapterItem extends StatelessWidget {
+  final String _title;
+  final ChapterSelected _callback;
+  final int _index;
+
+  ChapterItem(this._title, this._callback, this._index);
 
   @override
   Widget build(BuildContext context) {
-    return new ListTile(title: new Text(title),
-        onTap: () => callback(index));
+    return new ListTile(title: new Text(_title),
+        onTap: () => _callback(_index),
+        key: chapterItemKey(_index)
+    );
   }
 }
