@@ -6,29 +6,27 @@ abstract class StateSwitchAction {
 
 //todo probably don't need this one!
 class ChangeScreensAction extends StateSwitchAction {
-  final Screen toSwitchTo;
+  final Screen _toSwitchTo;
 
-  ChangeScreensAction(this.toSwitchTo);
-
+  ChangeScreensAction(this._toSwitchTo);
 
   @override
-  AppState invoke(AppState initialState) => initialState.copyWith(toSwitchTo);
+  AppState invoke(AppState initialState) => initialState.copyWith(_toSwitchTo);
 
   @override
   String toString() {
-    return 'SwitchStateAction{toSwitchTo: $toSwitchTo}';
+    return 'SwitchStateAction{toSwitchTo: $_toSwitchTo}';
   }
 }
 
 class ChapterSelectedAction extends StateSwitchAction {
-  final int selected;
+  final int _selected;
 
-  ChapterSelectedAction(this.selected);
-
-
-  @override
-  AppState invoke(AppState initialState) => initialState.copyWithChapter(selected);
+  ChapterSelectedAction(this._selected);
 
   @override
-  String toString() => 'ChapterSelectedAction{selected: $selected}';
+  AppState invoke(AppState initialState) => initialState.copyWithChapter(_selected);
+
+  @override
+  String toString() => 'ChapterSelectedAction{selected: $_selected}';
 }
