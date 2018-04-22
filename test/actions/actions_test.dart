@@ -28,6 +28,11 @@ main() {
       expect(updated.currentChapter, ch4);
     });
 
+    test('selected', () {
+      ChapterSelectedAction action = new ChapterSelectedAction(3);
+      expect(action.selected, 3);
+    });
+
     test('toString', () {
       ChapterSelectedAction action = new ChapterSelectedAction(2);
       expect(action.toString(), "ChapterSelectedAction{selected: 2}");

@@ -50,19 +50,19 @@ class ChapterSelector extends StatelessWidget {
 }
 
 class ChaptersModel {
-  Store<AppState> store;
-  List<ChapterSpec> chapters;
+  Store<AppState> _store;
+  List<ChapterSpec> _chapters;
 
-  ChaptersModel(this.store) {
-    chapters = store.state.applicationSpec.chapters;
+  ChaptersModel(this._store) {
+    _chapters = _store.state.applicationSpec.chapters;
   }
 
-  get length => chapters.length;
+  get length => _chapters.length;
 
-  String title(int index) => chapters[index].title;
+  String title(int index) => _chapters[index].title;
 
   void chapterSelected(int index) =>
-      store.dispatch(new ChapterSelectedAction(index));
+      _store.dispatch(new ChapterSelectedAction(index));
 }
 
 class ChapterItem extends StatelessWidget {

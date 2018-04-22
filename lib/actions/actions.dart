@@ -29,4 +29,6 @@ class ChapterSelectedAction extends StateSwitchAction {
 
   @override
   String toString() => 'ChapterSelectedAction{selected: $_selected}';
+
+  get selected => _selected;
 }
