@@ -25,10 +25,23 @@ class ChapterSelectedAction extends StateSwitchAction {
   ChapterSelectedAction(this._selected);
 
   @override
-  AppState invoke(AppState initialState) => initialState.copyWithChapter(_selected);
+  AppState invoke(AppState initialState) => initialState.copyWithIndexedChapter(_selected);
 
   @override
   String toString() => 'ChapterSelectedAction{selected: $_selected}';
+
+  get selected => _selected;
+}
+class WordListSelectedAction extends StateSwitchAction {
+  final int _selected;
+
+  WordListSelectedAction(this._selected);
+
+  @override
+  AppState invoke(AppState initialState) => initialState.copyWithIndexedChapter(_selected);
+
+  @override
+  String toString() => 'WordListSelectedAction{selected: $_selected}';
 
   get selected => _selected;
 }

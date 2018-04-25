@@ -9,6 +9,7 @@ enum Screen {
 }
 
 typedef void ChapterSelected(int index);
+typedef void WordListSelected(int index);
 
 @immutable
 class AppState {
@@ -16,15 +17,21 @@ class AppState {
       .applicationSpec;
   final Screen screen;
   final ChapterSpec currentChapter;
+  final WordListSpec currentWordList;
 
-  AppState(this.screen) : currentChapter = new ChapterStructure().chapter1;
+  AppState(this.screen) : currentChapter = new ChapterStructure().chapter1, currentWordList = new ChapterStructure().chapter1.wordLists[0];
 
-  AppState.copy(this.currentChapter, this.screen);
+  AppState.copyWithChapter(this.currentChapter, this.screen) : currentWordList = currentChapter.wordLists[0];
 
-  AppState copyWith(Screen screen) => new AppState.copy(currentChapter, screen);
+  AppState.copy(this.currentChapter, this.currentWordList, this.screen);
 
-  AppState copyWithChapter(int chapterIndex) =>
-      new AppState.copy(applicationSpec.chapters[chapterIndex], this.screen);
+  AppState copyWith(Screen screen) => new AppState.copy(currentChapter, currentWordList, screen);
+
+  AppState copyWithIndexedChapter(int chapterIndex) =>
+      new AppState.copyWithChapter(applicationSpec.chapters[chapterIndex], this.screen);
+
+  AppState copyWithIndexedWordList(int wordListIndex) =>
+      AppState.copy(currentChapter, currentChapter.wordLists[wordListIndex], this.screen);
 
   @override
   int get hashCode => screen.hashCode;
@@ -34,6 +41,7 @@ class AppState {
       identical(this, other) ||
           other is AppState &&
               runtimeType == other.runtimeType &&
+              currentWordList == other.currentWordList &&
               currentChapter == other.currentChapter &&
               screen == other.screen;
 

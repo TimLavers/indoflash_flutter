@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/keys/keys.dart';
 import 'package:flutter_app2/models/app_state.dart';
 import 'package:flutter_app2/presentation/buttons.dart';
 import 'package:flutter_app2/routes/routes.dart';
@@ -11,16 +10,12 @@ const WORD_LIST_SELECTOR = 'Word List Selector';
 const MAIN_SCREEN = 'Main Screen';
 
 class MainScreen extends StatelessWidget {
-  MainScreen() : super(key: IndoFlashKeys.homeScreen);
-
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, MainScreenModel>(
-        converter: (Store<AppState> store) {
-          return new MainScreenModel(store);
-        },
-        builder: (BuildContext context, MainScreenModel model) {
-          return new Scaffold(
+      converter: (Store<AppState> store) => MainScreenModel(store),
+      builder: (BuildContext context, MainScreenModel model) =>
+          Scaffold(
             appBar: new AppBar(
               title: new Text(MAIN_SCREEN),
             ),
@@ -38,8 +33,8 @@ class MainScreen extends StatelessWidget {
                   createWordListNavigationButton(),
                   createChapterListNavigationButton(),
                 ]),
-          );
-        });
+          ),
+    );
   }
 }
 

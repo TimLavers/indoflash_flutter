@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/keys/keys.dart';
 import 'package:flutter_app2/models/app_state.dart';
 import 'package:flutter_app2/presentation/chapter_selector.dart';
-
-import 'package:flutter_app2/presentation/main_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_app2/routes/routes.dart';
 
 void main() {
   testWidgets('ChapterItem', (WidgetTester tester) async {
@@ -31,5 +27,11 @@ void main() {
     await tester.tap(byKey);
 
     expect(selected, index);
+
+    print("finder: $byKey");
+
+//    byKey.first.
+
+    //todo test text, etc
   });
 }

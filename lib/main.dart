@@ -1,54 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/models/app_state.dart';
-import 'package:flutter_app2/presentation/chapter_selector.dart';
 import 'package:flutter_app2/presentation/main_screen.dart';
+import 'package:flutter_app2/presentation/chapter_selector.dart';
 import 'package:flutter_app2/presentation/word_list_selector.dart';
 import 'package:flutter_app2/reducers/app_state_reducer.dart';
 import 'package:flutter_app2/routes/routes.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-void main() => runApp(new IndoFlash());
+void main() {
+  final store = new Store<AppState>(
+      appReducer, initialState: new AppState(Screen.word_list));
+  runApp(new IndoFlash(store));
+}
 
 class IndoFlash extends StatelessWidget {
   //Adapted from the Flutter initial app and
   //The Flutter Architecture Samples
   //https://github.com/brianegan/flutter_architecture_samples.git
 
-  final store = new Store<AppState>(
-      appReducer, initialState: new AppState(Screen.word_list));
+  final Store<AppState> store;
+
+  IndoFlash(this.store, {Key key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider(
-      store: store,
-      child: new MaterialApp(
+    return new StoreProvider<AppState>(
+      store: this.store,
+      child:
+      new MaterialApp(
         title: "IndoFlash",
-        theme: new ThemeData(
-          primarySwatch: indoRed,
-        ),
+        theme: new ThemeData(primarySwatch: indoRed),
         routes: {
-          IndoFlashRoutes.home: (context) {
-            return new StoreBuilder<AppState>(
-              builder: (context, store) {
-                return new MainScreen();
-              },
-            );
-          },
-          IndoFlashRoutes.listSelector: (context) {
-            return new StoreBuilder<AppState>(
-              builder: (context, store) {
-                return new WordListSelector();
-              },
-            );
-          },
-          IndoFlashRoutes.chapterSelector: (context) {
-            return new StoreBuilder<AppState>(
-              builder: (context, store) {
-                return new ChapterSelector();
-              },
-            );
-          },
+          IndoFlashRoutes.home: (context) => MainScreen(),
+          IndoFlashRoutes.listSelector: (context) => WordListSelector(),
+          IndoFlashRoutes.chapterSelector: (context) => ChapterSelector(),
         },
       ),
     );

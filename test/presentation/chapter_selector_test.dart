@@ -1,37 +1,46 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_app2/keys/keys.dart';
-
-import 'package:flutter_app2/presentation/main_screen.dart';
+import 'package:flutter_app2/actions/actions.dart';
+import 'package:flutter_app2/models/app_state.dart';
+import 'package:flutter_app2/presentation/chapter_selector.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_app2/routes/routes.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_app2/models/app_state.dart';
+import 'package:flutter_app2/presentation/chapter_selector.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:redux/redux.dart';
+
+import 'package:flutter_redux/flutter_redux.dart';
 
 void main() {
-  testWidgets('Word List Selecter Button', (WidgetTester tester) async {
-//    var buttonKey = IndoFlashKeys.wordListSelectorLauncher;
-//    var container = new Container();
-//
-//    await tester.pumpWidget(
-//      new StatefulBuilder(
-//        builder: (BuildContext context, StateSetter setState) {
-//          return new MaterialApp(
-//            home: new MainScreen(),
-//              routes: {
-//                IndoFlashRoutes.listSelector:  (BuildContext context) {
-//                  return container;
-//                },
-//              }
-//          );
-//        },
-//      ),
-//    );
-//    var byKey = find.byKey(buttonKey);
-//    print(byKey);
-//    final NavigatorState navigator = tester.state<NavigatorState>(
-//        find.byType(Navigator));
-//    expect(navigator.canPop(), equals(false));
-//    await tester.tap(byKey);
-//
-//    expect(navigator.canPop(), equals(true));
-//    expect(navigator.pop(container), equals(true));
+  testWidgets('ChapterSelector', (WidgetTester tester) async {
+    var item3Key = chapterItemKey(3);
+    var index = 3;
+    int selected;
+    var lastAction;
+    var lastState;
+    ChapterSelected callback = (chapter) {
+      selected = chapter;
+    };
+
+    final store = new Store<AppState>(
+      (AppState state, action) {
+        lastState = state;
+        lastAction = action;
+        return state;
+      }
+    );
+    final widget = new StoreProvider<AppState>(
+      store: store,
+      child: new StoreBuilder(
+        builder: (context, store) =>new ChapterSelector()
+    ));
+    await tester.pumpWidget(widget);
+
+    var byKey = find.byKey(item3Key);
+    print(byKey);
+    await tester.tap(byKey);
+
+    expect((lastAction as ChapterSelectedAction).selected, index);
   });
 }

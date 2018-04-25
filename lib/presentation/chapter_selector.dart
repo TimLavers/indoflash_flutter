@@ -11,42 +11,40 @@ const CHAPTER_SELECTOR = 'Chapter Selector';
 
 class ChapterSelector extends StatelessWidget {
 
-  ChapterSelector({Key key}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) {
-    return new StoreConnector<AppState, ChaptersModel>(
-        converter: (Store<AppState> store) {
-          return new ChaptersModel(store);
-        },
-        builder: (BuildContext context, ChaptersModel model) {
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text(CHAPTER_SELECTOR),
+  Widget build(BuildContext context) =>
+      StoreConnector<AppState, ChaptersModel>(
+        converter: (Store<AppState> store) => ChaptersModel(store),
+        builder: (BuildContext context, ChaptersModel model) =>
+            Scaffold(
+              appBar: AppBar(title: Text(CHAPTER_SELECTOR)),
+              body: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) =>
+                      ChapterItem(model.title(index),
+                              (index) {
+                            model.chapterSelected(index);
+                            Navigator.pushNamed(
+                                context, IndoFlashRoutes.listSelector
+                            );
+                          },
+                          index),
+                  itemCount: model.length),
+              bottomNavigationBar: BottomNavigationBar(
+                  onTap: (int index) {
+                    if (index == 0) {
+                      Navigator.pushNamed(context, IndoFlashRoutes.home);
+                    } else {
+                      Navigator.pushNamed(
+                          context, IndoFlashRoutes.listSelector
+                      );
+                    }
+                  },
+                  items: <BottomNavigationBarItem>[
+                    createHomeNavigationButton(),
+                    createWordListNavigationButton(),
+                  ]),
             ),
-            body:
-            new ListView.builder(
-                itemBuilder: (BuildContext context, int index) =>
-                new ChapterItem(
-                    model.title(index), (index) => model.chapterSelected(index),
-                    index),
-                itemCount: model.length),
-            bottomNavigationBar: new BottomNavigationBar(
-                onTap: (int index) {
-                  if (index == 0) {
-                    Navigator.pushNamed(context, IndoFlashRoutes.home);
-                  } else {
-                    Navigator.pushNamed(context, IndoFlashRoutes.listSelector
-                    );
-                  }
-                },
-                items: <BottomNavigationBarItem>[
-                  createHomeNavigationButton(),
-                  createWordListNavigationButton(),
-                ]),
-          );
-        });
-  }
+      );
 }
 
 class ChaptersModel {
