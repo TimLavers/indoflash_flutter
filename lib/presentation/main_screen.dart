@@ -5,7 +5,6 @@ import 'package:flutter_app2/routes/routes.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-
 const WORD_LIST_SELECTOR = 'Word List Selector';
 const MAIN_SCREEN = 'Main Screen';
 
@@ -16,17 +15,15 @@ class MainScreen extends StatelessWidget {
       converter: (Store<AppState> store) => MainScreenModel(store),
       builder: (BuildContext context, MainScreenModel model) =>
           Scaffold(
-            appBar: new AppBar(
-              title: new Text(MAIN_SCREEN),
-            ),
-            body: new Text(model.chapterTitle),
+            appBar: AppBar(title: Text(MAIN_SCREEN)),
+            body: Text(model.body),
             bottomNavigationBar: new BottomNavigationBar(
                 onTap: (int index) {
                   if (index == 0) {
-                    Navigator.pushNamed(context, IndoFlashRoutes.listSelector);
+                    Navigator.pushNamed(context, listSelector);
                   } else {
                     Navigator.pushNamed(
-                        context, IndoFlashRoutes.chapterSelector);
+                        context, chapterSelector);
                   }
                 },
                 items: <BottomNavigationBarItem>[
@@ -43,5 +40,5 @@ class MainScreenModel {
 
   MainScreenModel(this.store);
 
-  get chapterTitle => store.state.currentChapter.title;
+  get body => store.state.currentWordList.title;
 }

@@ -10,8 +10,6 @@ import 'package:redux/redux.dart';
 
 class WordListSelector extends StatelessWidget {
 
-  WordListSelector({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, WordListsModel>(
@@ -24,16 +22,16 @@ class WordListSelector extends StatelessWidget {
                     WordListItem(model.title(index),
                             (index) {
                           model.wordListSelected(index);
-                          Navigator.pushNamed(context, IndoFlashRoutes.home);
+                          Navigator.pushNamed(context, home);
                         }, index),
                 itemCount: model.length),
             bottomNavigationBar: BottomNavigationBar(
                 onTap: (int index) {
                   if (index == 0) {
-                    Navigator.pushNamed(context, IndoFlashRoutes.home);
+                    Navigator.pushNamed(context, home);
                   } else {
                     Navigator.pushNamed(
-                        context, IndoFlashRoutes.chapterSelector);
+                        context, chapterSelector);
                   }
                 },
                 items: <BottomNavigationBarItem>[

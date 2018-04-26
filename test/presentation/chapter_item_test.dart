@@ -27,11 +27,5 @@ void main() {
     await tester.tap(byKey);
 
     expect(selected, index);
-
-    print("finder: $byKey");
-
-//    byKey.first.
-
-    //todo test text, etc
   });
 }

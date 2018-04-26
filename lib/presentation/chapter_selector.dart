@@ -23,20 +23,16 @@ class ChapterSelector extends StatelessWidget {
                       ChapterItem(model.title(index),
                               (index) {
                             model.chapterSelected(index);
-                            Navigator.pushNamed(
-                                context, IndoFlashRoutes.listSelector
-                            );
+                            Navigator.pushNamed(context, listSelector);
                           },
                           index),
                   itemCount: model.length),
               bottomNavigationBar: BottomNavigationBar(
                   onTap: (int index) {
                     if (index == 0) {
-                      Navigator.pushNamed(context, IndoFlashRoutes.home);
+                      Navigator.pushNamed(context, home);
                     } else {
-                      Navigator.pushNamed(
-                          context, IndoFlashRoutes.listSelector
-                      );
+                      Navigator.pushNamed(context, listSelector);
                     }
                   },
                   items: <BottomNavigationBarItem>[

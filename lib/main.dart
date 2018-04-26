@@ -9,9 +9,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 void main() {
-  final store = new Store<AppState>(
-      appReducer, initialState: new AppState(Screen.word_list));
-  runApp(new IndoFlash(store));
+  final store = Store<AppState>(appReducer, initialState: AppState());
+  runApp(IndoFlash(store));
 }
 
 class IndoFlash extends StatelessWidget {
@@ -21,24 +20,23 @@ class IndoFlash extends StatelessWidget {
 
   final Store<AppState> store;
 
-  IndoFlash(this.store, {Key key,}) : super(key: key);
+  IndoFlash(this.store);
 
   @override
-  Widget build(BuildContext context) {
-    return new StoreProvider<AppState>(
+  Widget build(BuildContext context) =>
+     StoreProvider<AppState>(
       store: this.store,
       child:
-      new MaterialApp(
+      MaterialApp(
         title: "IndoFlash",
         theme: new ThemeData(primarySwatch: indoRed),
         routes: {
-          IndoFlashRoutes.home: (context) => MainScreen(),
-          IndoFlashRoutes.listSelector: (context) => WordListSelector(),
-          IndoFlashRoutes.chapterSelector: (context) => ChapterSelector(),
+          home: (context) => MainScreen(),
+          listSelector: (context) => WordListSelector(),
+          chapterSelector: (context) => ChapterSelector(),
         },
       ),
     );
-  }
 }
 
 const MaterialColor indoRed = const MaterialColor(

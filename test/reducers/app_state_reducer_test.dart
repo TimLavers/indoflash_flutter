@@ -6,10 +6,10 @@ import 'package:flutter_app2/actions/actions.dart';
 main() {
   group('appReducer', () {
     test('constructor empty', () {
-      AppState state = new AppState(Screen.word_list);
-      ChangeScreensAction action = new ChangeScreensAction(Screen.selecting_chapter);
+      AppState state = AppState();
+      StateSwitchAction action = new ChapterSelectedAction(3);
       var reduced = appReducer(state, action);
-      expect(reduced.screen, Screen.selecting_chapter);
+      expect(reduced.currentChapter, reduced.applicationSpec.chapters[3]);
     });
   });
 }

@@ -2,39 +2,31 @@
 import 'package:flutter_app2/spec/spec.dart';
 import 'package:meta/meta.dart';
 
-enum Screen {
-  word_list,
-  selecting_word_list,
-  selecting_chapter
-}
-
 typedef void ChapterSelected(int index);
 typedef void WordListSelected(int index);
 
 @immutable
 class AppState {
-  final ApplicationSpec applicationSpec = new ChapterStructure()
-      .applicationSpec;
-  final Screen screen;
+  final applicationSpec = ChapterStructure().applicationSpec;
   final ChapterSpec currentChapter;
   final WordListSpec currentWordList;
 
-  AppState(this.screen) : currentChapter = new ChapterStructure().chapter1, currentWordList = new ChapterStructure().chapter1.wordLists[0];
+  AppState() : currentChapter = ChapterStructure().chapter1, currentWordList = ChapterStructure().chapter1.wordLists[0];
 
-  AppState.copyWithChapter(this.currentChapter, this.screen) : currentWordList = currentChapter.wordLists[0];
+  AppState.copyWithChapter(this.currentChapter) : currentWordList = currentChapter.wordLists[0];
 
-  AppState.copy(this.currentChapter, this.currentWordList, this.screen);
+  AppState.copy(this.currentChapter, this.currentWordList);
 
-  AppState copyWith(Screen screen) => new AppState.copy(currentChapter, currentWordList, screen);
+  AppState copyWith() => AppState.copy(currentChapter, currentWordList);
 
   AppState copyWithIndexedChapter(int chapterIndex) =>
-      new AppState.copyWithChapter(applicationSpec.chapters[chapterIndex], this.screen);
+      AppState.copyWithChapter(applicationSpec.chapters[chapterIndex]);
 
   AppState copyWithIndexedWordList(int wordListIndex) =>
-      AppState.copy(currentChapter, currentChapter.wordLists[wordListIndex], this.screen);
+      AppState.copy(currentChapter, currentChapter.wordLists[wordListIndex]);
 
   @override
-  int get hashCode => screen.hashCode;
+  int get hashCode => currentChapter.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -42,10 +34,9 @@ class AppState {
           other is AppState &&
               runtimeType == other.runtimeType &&
               currentWordList == other.currentWordList &&
-              currentChapter == other.currentChapter &&
-              screen == other.screen;
+              currentChapter == other.currentChapter;
 
   @override
   String toString() =>
-      'AppState{screen: $screen, chapter: ${currentChapter.title}';
+      'AppState{chapter: ${currentChapter.title}}';
 }

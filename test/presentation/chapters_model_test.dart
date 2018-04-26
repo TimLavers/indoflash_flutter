@@ -9,7 +9,7 @@ void main() {
   ChapterStructure chapterStructure = new ChapterStructure();
   ChapterSelectedAction lastAction;
   AppState lastActionedState;
-  final AppState initialState = new AppState(Screen.selecting_word_list);
+  final AppState initialState = new AppState();
   AppState appReducer(AppState state, action) {
     lastAction = action;
     lastActionedState = state;
