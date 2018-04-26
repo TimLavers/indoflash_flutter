@@ -3,17 +3,18 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_app2/actions/actions.dart';
 import 'package:flutter_app2/models/app_state.dart';
 import 'package:flutter_app2/presentation/chapter_selector.dart';
+import 'package:flutter_app2/presentation/word_list_selector.dart';
 import 'package:flutter_app2/routes/routes.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:redux/redux.dart';
 
 void main() {
-  testWidgets('ChapterSelector', (WidgetTester tester) async {
-    var item3Key = chapterItemKey(3);
+  testWidgets('WordListSelector', (WidgetTester tester) async {
+    var item3Key = wordListItemKey(3);
     var index = 3;
     var lastAction;
-    bool listsRoutePushed = false;
+    bool homeRoutePushed = false;
 
     final theStore = Store<AppState>(
           (AppState state, action) {
@@ -28,10 +29,10 @@ void main() {
           builder: (BuildContext context, Store<AppState> store) =>
               MaterialApp(
                 title: "Testing",
-                home: ChapterSelector(),
+                home: WordListSelector(),
                 routes: {
-                  listSelector: (context) {
-                    listsRoutePushed = true;
+                  mainScreen: (context) {
+                    homeRoutePushed = true;
                     return Container();
                   },
                 },
@@ -44,9 +45,9 @@ void main() {
     await tester.tap(byKey);
     await tester.pump();
 
-    //A ChapterSelectedAction should have been thrown.
-    expect((lastAction as ChapterSelectedAction).selected, index);
-    //The listSelector route should have been requested.
-    expect(listsRoutePushed, true);
+    //A WordListSelectedAction should have been thrown.
+    expect((lastAction as WordListSelectedAction).selected, index);
+    //The main screen route should have been requested.
+    expect(homeRoutePushed, true);
   });
 }

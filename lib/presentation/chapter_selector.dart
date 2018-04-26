@@ -30,7 +30,7 @@ class ChapterSelector extends StatelessWidget {
               bottomNavigationBar: BottomNavigationBar(
                   onTap: (int index) {
                     if (index == 0) {
-                      Navigator.pushNamed(context, home);
+                      Navigator.pushNamed(context, mainScreen);
                     } else {
                       Navigator.pushNamed(context, listSelector);
                     }

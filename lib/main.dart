@@ -30,8 +30,9 @@ class IndoFlash extends StatelessWidget {
       MaterialApp(
         title: "IndoFlash",
         theme: new ThemeData(primarySwatch: indoRed),
+        home: MainScreen(),
         routes: {
-          home: (context) => MainScreen(),
+          mainScreen: (context) => MainScreen(),
           listSelector: (context) => WordListSelector(),
           chapterSelector: (context) => ChapterSelector(),
         },

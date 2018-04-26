@@ -16,7 +16,7 @@ void main() {
           return new MaterialApp(
             home: new MainScreen(),
               routes: {
-                IndoFlashRoutes.listSelector:  (BuildContext context) {
+                listSelector:  (BuildContext context) {
                   return container;
                 },
               }
