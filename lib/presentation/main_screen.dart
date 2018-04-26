@@ -22,8 +22,7 @@ class MainScreen extends StatelessWidget {
                   if (index == 0) {
                     Navigator.pushNamed(context, listSelector);
                   } else {
-                    Navigator.pushNamed(
-                        context, chapterSelector);
+                    Navigator.pushNamed(context, chapterSelector);
                   }
                 },
                 items: <BottomNavigationBarItem>[
