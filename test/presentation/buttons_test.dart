@@ -29,7 +29,7 @@ void main() {
     await tester.tap(byKey);
     expect(itemPressed, 0);
 
-    //Find and tap the chapter lists button.
+    //Find and tap the word lists button.
     byKey = find.byIcon(Icons.add_call);
     await tester.tap(byKey);
     expect(itemPressed, 1);

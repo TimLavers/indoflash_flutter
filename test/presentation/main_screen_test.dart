@@ -1,37 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/keys/keys.dart';
-
+import 'package:flutter_app2/models/app_state.dart';
 import 'package:flutter_app2/presentation/main_screen.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_app2/routes/routes.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:redux/redux.dart';
 
 void main() {
-  testWidgets('Word List Selecter Button', (WidgetTester tester) async {
-    var buttonKey = IndoFlashKeys.wordListSelectorLauncher;
-    var container = new Container();
+  testWidgets('Navigation Buttons', (WidgetTester tester) async {
+    var wordListsPlaceholder = new Container();
+    var chapterListsPlaceholder = new Container();
 
-    await tester.pumpWidget(
-      new StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
-          return new MaterialApp(
-            home: new MainScreen(),
-              routes: {
-                listSelector:  (BuildContext context) {
-                  return container;
-                },
-              }
-          );
-        },
-      ),
+    final theStore = Store<AppState>(
+          (AppState state, action) => state,
+      initialState: AppState(),
     );
-    var byKey = find.byKey(buttonKey);
-    print(byKey);
+
+    final widget = StoreProvider<AppState>(
+        store: theStore,
+        child: StoreBuilder(
+          builder: (BuildContext context, Store<AppState> store) =>
+              MaterialApp(
+                title: "Testing",
+                home: MainScreen(),
+                routes: {
+                  listSelector: (context) => wordListsPlaceholder,
+                  chapterSelector: (context) => chapterListsPlaceholder
+                },
+              ),
+        ));
+
+    await tester.pumpWidget(widget);
+
     final NavigatorState navigator = tester.state<NavigatorState>(
         find.byType(Navigator));
-    expect(navigator.canPop(), equals(false));
+    expect(navigator.canPop(), false);
+
+    var byKey = find.byIcon(Icons.add_call);
     await tester.tap(byKey);
 
-    expect(navigator.canPop(), equals(true));
-    expect(navigator.pop(container), equals(true));
+    expect(navigator.canPop(), true);
+    expect(navigator.pop(wordListsPlaceholder), true);
   });
 }

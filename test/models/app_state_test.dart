@@ -48,14 +48,11 @@ main() {
     test('==', () {
       AppState selectingChapterA = new AppState();
       AppState selectingChapterB = new AppState();
-      AppState selectingWordlistChapter1 = new AppState();
       AppState selectingWordlistChapter2AWL1 = new AppState.copy(ch2, wl1Ch2);
       AppState selectingWordlistChapter2AWL2 = new AppState.copy(ch2, wl2Ch2);
       AppState selectingWordlistChapter2BWL1 = new AppState.copy(ch2, wl1Ch2);
       AppState selectingWordlistChapter2BWL2 = new AppState.copy(ch2, wl2Ch2);
       expect(selectingChapterA == selectingChapterB, true);
-      expect(selectingChapterA == selectingWordlistChapter1, false);
-      expect(selectingWordlistChapter1 == selectingWordlistChapter2AWL1, false);
       expect(selectingWordlistChapter2BWL1 == selectingWordlistChapter2AWL1, true);
       expect(selectingWordlistChapter2BWL1 == selectingWordlistChapter2AWL2, false);
       expect(selectingWordlistChapter2BWL2 == selectingWordlistChapter2AWL2, true);
