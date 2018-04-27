@@ -16,7 +16,7 @@ class MainScreen extends StatelessWidget {
       builder: (BuildContext context, MainScreenModel model) =>
           Scaffold(
             appBar: AppBar(title: Text(MAIN_SCREEN)),
-            body: Text(model.body),
+            body: Text(model.wordList),
             bottomNavigationBar: new BottomNavigationBar(
                 onTap: (int index) {
                   if (index == 0) {
@@ -39,5 +39,7 @@ class MainScreenModel {
 
   MainScreenModel(this.store);
 
-  get body => store.state.currentWordList.title;
+  get listName => store.state.currentWordList.title;
+
+//  get word =>
 }
