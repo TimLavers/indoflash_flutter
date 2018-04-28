@@ -1,4 +1,3 @@
-import 'package:flutter_app2/spec/spec.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_app2/models/app_state.dart';
 

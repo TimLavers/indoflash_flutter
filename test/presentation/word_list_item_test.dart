@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/models/app_state.dart';
-import 'package:flutter_app2/presentation/chapter_selector.dart';
 import 'package:flutter_app2/presentation/word_list_selector.dart';
 import 'package:flutter_test/flutter_test.dart';
 

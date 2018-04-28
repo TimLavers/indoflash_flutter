@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app2/actions/actions.dart';
 import 'package:flutter_app2/models/app_state.dart';
-import 'package:flutter_app2/presentation/chapter_selector.dart';
 import 'package:flutter_app2/presentation/word_list_selector.dart';
 import 'package:flutter_app2/routes/routes.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -21,7 +20,7 @@ void main() {
         lastAction = action;
         return state;
       },
-      initialState: AppState(),
+      initialState: AppState.initial(),
     );
     final widget = StoreProvider<AppState>(
         store: theStore,

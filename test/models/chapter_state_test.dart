@@ -5,7 +5,6 @@ import 'package:flutter_app2/models/app_state.dart';
 main() {
   ChapterStructure chapterStructure = new ChapterStructure();
   ChapterSpec ch1 = chapterStructure.applicationSpec.chapters[0];
-  WordListSpec wl1Ch1 = ch1.wordLists[0];
   ChapterSpec ch2 = chapterStructure.applicationSpec.chapters[1];
   WordListSpec wl1Ch2 = ch2.wordLists[0];
   WordListSpec wl2Ch2 = ch2.wordLists[1];

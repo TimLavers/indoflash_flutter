@@ -6,7 +6,7 @@ import 'package:flutter_app2/actions/actions.dart';
 main() {
   group('appReducer', () {
     test('constructor empty', () {
-      AppState state = AppState();
+      AppState state = AppState.initial();
       StateSwitchAction action = new ChapterSelectedAction(3);
       var reduced = appReducer(state, action);
       expect(reduced.currentChapter, reduced.applicationSpec.chapters[3]);

@@ -9,7 +9,7 @@ void main() {
   final ChapterStructure chapterStructure = ChapterStructure();
   final chapters = chapterStructure.applicationSpec.chapters;
   final chapter1 = chapters[0];
-  final AppState initialState = new AppState();
+  final AppState initialState = new AppState.initial();
   WordListSelectedAction lastAction;
   AppState lastActionedState;
   AppState appReducer(AppState state, action) {

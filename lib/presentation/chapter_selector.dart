@@ -48,7 +48,7 @@ class ChaptersModel {
   List<ChapterSpec> _chapters;
 
   ChaptersModel(this._store) {
-    _chapters = _store.state.applicationSpec.chapters;
+    _chapters = _store.state.chapterState.applicationSpec.chapters;//todo improve?
   }
 
   get length => _chapters.length;

@@ -9,7 +9,7 @@ void main() {
   ChapterStructure chapterStructure = new ChapterStructure();
   ChapterSelectedAction lastAction;
   AppState lastActionedState;
-  final AppState initialState = new AppState();
+  final AppState initialState = new AppState.initial();
   AppState appReducer(AppState state, action) {
     lastAction = action;
     lastActionedState = state;

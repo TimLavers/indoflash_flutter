@@ -20,7 +20,7 @@ void main() {
         lastAction = action;
         return state;
       },
-      initialState: AppState(),
+      initialState: AppState.initial(),
     );
     final widget = StoreProvider<AppState>(
         store: theStore,

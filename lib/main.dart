@@ -9,7 +9,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 void main() {
-  final store = Store<AppState>(appReducer, initialState: AppState());
+  final store = Store<AppState>(appReducer, initialState: AppState.initial());
   runApp(IndoFlash(store));
 }
 

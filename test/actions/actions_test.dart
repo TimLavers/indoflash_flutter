@@ -12,7 +12,7 @@ main() {
   group('WordListSelectedAction', () {
     test('invoke', () {
       WordListSelectedAction action = WordListSelectedAction(3);
-      AppState currentState = AppState();
+      AppState currentState = AppState.initial();
       expect(currentState.currentWordList, wl1);
       AppState updated = action.invoke(currentState);
       expect(updated.currentWordList, wl4);
@@ -31,7 +31,7 @@ main() {
   group('ChapterSelectedAction', () {
     test('invoke', () {
       ChapterSelectedAction action = ChapterSelectedAction(3);
-      AppState currentState = AppState();
+      AppState currentState = AppState.initial();
       AppState updated = action.invoke(currentState);
       expect(updated.currentChapter, ch4);
     });

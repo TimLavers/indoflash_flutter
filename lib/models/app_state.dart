@@ -10,6 +10,10 @@ class AppState {
   final ChapterState chapterState;
   final WordState wordState;
 
+  AppState.initial()
+      : chapterState = ChapterState.start(),
+        wordState = WordState.initial();//todo test
+
   AppState(this.chapterState, this.wordState);
 
   AppState.forChapter(this.chapterState) : wordState = WordState(0, false);
@@ -20,24 +24,22 @@ class AppState {
       : chapterState = ChapterState.withIndexedChapter(index),
         wordState = WordState(0, false);
 
-  get currentWordList => chapterState.currentWordList;//todo test
+  get currentWordList => chapterState.currentWordList; //todo test
 
-//  get word {
-//    return currentWordList[wordState.index].;
-//  }
+  get currentChapter => chapterState.currentChapter;//todo test
+
+  get applicationSpec => chapterState.applicationSpec;//todo test
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is AppState &&
-              runtimeType == other.runtimeType &&
-              chapterState == other.chapterState &&
-              wordState == other.wordState;
+      other is AppState &&
+          runtimeType == other.runtimeType &&
+          chapterState == other.chapterState &&
+          wordState == other.wordState;
 
   @override
-  int get hashCode =>
-      chapterState.hashCode ^
-      wordState.hashCode;
+  int get hashCode => chapterState.hashCode ^ wordState.hashCode;
 }
 
 @immutable
@@ -52,8 +54,8 @@ class ChapterState {
 
   ChapterState.withIndexedChapter(int index)
       : currentChapter = ChapterStructure().applicationSpec.chapters[index],
-        currentWordList = ChapterStructure().applicationSpec.chapters[index]
-            .wordLists[0];
+        currentWordList =
+            ChapterStructure().applicationSpec.chapters[index].wordLists[0];
 
   ChapterState(this.currentChapter, this.currentWordList);
 
@@ -66,14 +68,13 @@ class ChapterState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is ChapterState &&
-              runtimeType == other.runtimeType &&
-              currentWordList == other.currentWordList &&
-              currentChapter == other.currentChapter;
+      other is ChapterState &&
+          runtimeType == other.runtimeType &&
+          currentWordList == other.currentWordList &&
+          currentChapter == other.currentChapter;
 
   @override
-  String toString() =>
-      'AppState{chapter: ${currentChapter.title}}';
+  String toString() => 'AppState{chapter: ${currentChapter.title}}';
 }
 
 @immutable
@@ -81,22 +82,24 @@ class WordState {
   final int index;
   final bool showDefinition;
 
+  WordState.initial()
+      : index = 0,
+        showDefinition = false; //todo test
+
   WordState(this.index, this.showDefinition);
 
-  WordState.withIndex(this.index) :showDefinition = false;
+  WordState.withIndex(this.index) : showDefinition = false;
 
   WordState toggleShowDefinition() => WordState(index, !showDefinition);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is WordState &&
-              runtimeType == other.runtimeType &&
-              index == other.index &&
-              showDefinition == other.showDefinition;
+      other is WordState &&
+          runtimeType == other.runtimeType &&
+          index == other.index &&
+          showDefinition == other.showDefinition;
 
   @override
-  int get hashCode =>
-      index.hashCode ^
-      showDefinition.hashCode;
+  int get hashCode => index.hashCode ^ showDefinition.hashCode;
 }

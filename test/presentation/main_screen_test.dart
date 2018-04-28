@@ -13,7 +13,7 @@ void main() {
 
     final theStore = Store<AppState>(
           (AppState state, action) => state,
-      initialState: AppState(),
+      initialState: AppState.initial(),
     );
 
     final widget = StoreProvider<AppState>(
