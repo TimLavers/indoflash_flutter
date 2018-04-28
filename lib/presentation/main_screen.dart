@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_app2/keys/keys.dart';
 import 'package:flutter_app2/models/app_state.dart';
 import 'package:flutter_app2/presentation/buttons.dart';
 import 'package:flutter_app2/routes/routes.dart';
@@ -102,14 +103,14 @@ class WordDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      _createTextBox(_word.word),
-      _createTextBox(_definitionTextToShow),
+      _createTextBox(_word.word, wordKey),
+      _createTextBox(_definitionTextToShow, definitionKey),
     ]);
   }
 
   String get _definitionTextToShow => _showDef ? _word.definition : '';
 
-  Widget _createTextBox(String text) => Expanded(
+  Widget _createTextBox(String text, Key key) => Expanded(
       flex: 1,
       child: Text(
         text,
@@ -117,6 +118,7 @@ class WordDisplay extends StatelessWidget {
           fontWeight: FontWeight.normal,
           fontSize: 20.0,
         ),
+        key: key,
       ));
 }
 
