@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 
 typedef void ChapterSelected(int index);
 typedef void WordListSelected(int index);
+typedef void ShowOrNextButtonClicked();
 
 @immutable
 class AppState {

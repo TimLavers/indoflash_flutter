@@ -4,15 +4,10 @@ import 'package:flutter_app2/presentation/main_screen.dart';
 import 'package:flutter_app2/vocab/word.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'utils.dart';
+
 void main() {
   testWidgets('WordDisplay', (WidgetTester tester) async {
-    String textForKey(Key key) {
-      var byKey = find.byKey(key);
-      StatelessElement element = (byKey.evaluate().first as StatelessElement);
-      var build = element.build();
-      RichText richText = build as RichText;
-      return richText.text.text;
-    }
     final Word word = Word('guru','teacher');
 
     //Check that the definition is blank if constructed

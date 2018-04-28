@@ -74,7 +74,7 @@ class MainScreen extends StatelessWidget {
                     )),
                 Align(
                     alignment: Alignment.bottomCenter,
-                    child: ShowOrNextButton(model.wordState),
+                    child: ShowOrNextButton(model.wordState, (){}),
                 )],
             ),
             bottomNavigationBar: new BottomNavigationBar(
@@ -124,14 +124,15 @@ class WordDisplay extends StatelessWidget {
 
 class ShowOrNextButton extends StatelessWidget {
   final WordState _wordState;
+  final ShowOrNextButtonClicked _callback;
 
-  const ShowOrNextButton(this._wordState);
+  const ShowOrNextButton(this._wordState, this._callback);
 
   @override
   Widget build(BuildContext context) =>
       RaisedButton(
-        onPressed: () {},
-        child: Text(_buttonText),
+        onPressed: _callback,
+        child: Text(_buttonText, key: showOrNextButtonKey),
       );
 
   String get _buttonText => _wordState.showDefinition ? 'Next' : 'Show';

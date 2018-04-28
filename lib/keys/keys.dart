@@ -5,3 +5,4 @@ const wordListSelectorLauncher = Key('_word_list_selector_launcher_');
 const chapterSelectorKey = Key('_chapter_selector_');
 const wordKey = Key('__word__');
 const definitionKey = Key('__definition__');
+const showOrNextButtonKey = Key('__show_or_next_button__');
