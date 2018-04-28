@@ -15,11 +15,11 @@ void main() {
     lastActionedState = state;
     return state;
   }
-  final store = new Store<AppState>(
+  final store = Store<AppState>(
     appReducer,
     initialState: initialState,
   );
-  ChaptersModel model = new ChaptersModel(store);
+  ChaptersModel model = ChaptersModel(store);
   group('ChaptersModel', () {
     test('length', () {
       expect(model.length, chapterStructure.applicationSpec.chapters.length);

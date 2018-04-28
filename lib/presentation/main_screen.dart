@@ -139,15 +139,15 @@ class ShowOrNextButton extends StatelessWidget {
 }
 
 class MainScreenModel {
-  final Store<AppState> store;
+  final Store<AppState> _store;
 
-  MainScreenModel(this.store);
+  MainScreenModel(this._store);
 
-  get listName => store.state.currentWordList.title;
+  String get listName => _store.state.currentWordList.title;
 
-  get index => store.state.wordState.index;
+  int get index => _store.state.wordState.index;
 
-  get wordState => store.state.wordState;
+  WordState get wordState => _store.state.wordState;
 
   Future<Word> get word async {
 //    WordListSpec listSpec = store.state.currentWordList;
