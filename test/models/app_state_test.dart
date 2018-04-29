@@ -17,6 +17,12 @@ main() {
       expect(state.wordState, wordState);
     });
 
+    test('initial', () {
+      AppState state = AppState.initial();
+      expect(state.chapterState, ChapterState(ch1, wl1Ch1));
+      expect(state.wordState, WordState.initial());
+    });
+
     test('toggle', () {
       ChapterState chapterState = ChapterState(ch1,wl1Ch1);
       WordState wordState = WordState(3, false);
@@ -24,6 +30,27 @@ main() {
       AppState toggled = state.toggle();
       expect(toggled.chapterState, chapterState);
       expect(toggled.wordState, wordState.toggleShowDefinition());
+    });
+
+    test('current word list', () {
+      ChapterState chapterState = ChapterState(ch1,wl1Ch1);
+      WordState wordState = WordState(3, false);
+      AppState state = AppState(chapterState, wordState);
+      expect(state.currentWordList, wl1Ch1);
+    });
+
+    test('current chapter', () {
+      ChapterState chapterState = ChapterState(ch1,wl1Ch1);
+      WordState wordState = WordState(3, false);
+      AppState state = AppState(chapterState, wordState);
+      expect(state.currentChapter, ch1);
+    });
+
+    test('application spec', () {
+      ChapterState chapterState = ChapterState(ch1,wl1Ch1);
+      WordState wordState = WordState(3, false);
+      AppState state = AppState(chapterState, wordState);
+      expect(state.applicationSpec, chapterStructure.applicationSpec);
     });
 
     test('for chapter', () {

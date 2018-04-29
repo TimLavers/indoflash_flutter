@@ -1,4 +1,4 @@
-anda = you
+const String lesson1= '''anda = you
 apa = what
 Apa kabar? = How are you?
 baik = good
@@ -22,3 +22,4 @@ siapa= who
 silakan=please (go ahead and...)
 sore=late afternoon
 terima kasih=thank you
+''';

@@ -13,6 +13,31 @@ main() {
       expect(state.showDefinition, false);
     });
 
+    test('initial', () {
+      WordState state = WordState.initial();
+      expect(state.index, 0);
+      expect(state.showDefinition, false);
+    });
+
+    test('for next', () {
+      WordState state = WordState.initial();
+      WordState forNext = state.forNext();
+      expect(forNext.index, 0);
+      expect(forNext.showDefinition, true);
+
+      forNext = forNext.forNext();
+      expect(forNext.index, 1);
+      expect(forNext.showDefinition, false);
+
+      forNext = forNext.forNext();
+      expect(forNext.index, 1);
+      expect(forNext.showDefinition, true);
+
+      forNext = forNext.forNext();
+      expect(forNext.index, 2);
+      expect(forNext.showDefinition, false);
+    });
+
     test('constructor with index', () {
       WordState state = WordState.withIndex(5);
       expect(state.index, 5);

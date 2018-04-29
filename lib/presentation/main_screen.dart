@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_app2/actions/actions.dart';
 import 'package:flutter_app2/keys/keys.dart';
 import 'package:flutter_app2/models/app_state.dart';
 import 'package:flutter_app2/presentation/buttons.dart';
 import 'package:flutter_app2/routes/routes.dart';
+import 'package:flutter_app2/spec/spec.dart';
 import 'package:flutter_app2/vocab/word.dart';
 import 'package:flutter_app2/vocab/word_list.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -53,29 +55,14 @@ class MainScreen extends StatelessWidget {
                     flex: 1,
                     child: Container(
                       padding: const EdgeInsets.all(5.0),
-                      child: FutureBuilder<Word>(
-                        future: model.word,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<Word> snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.none:
-                              return Text('...');
-                            case ConnectionState.waiting:
-                              return Text('...');
-                            default:
-                              if (snapshot.hasError)
-                                return Text('Error: ${snapshot.error}');
-                              else
-                                return WordDisplay(snapshot.data, true);
-                          }
-                        },
-                      ),
+                      child: WordDisplay(model.word, model.wordState.showDefinition),
                       alignment: Alignment.topLeft,
                     )),
                 Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ShowOrNextButton(model.wordState, (){}),
-                )],
+                  alignment: Alignment.bottomCenter,
+                  child: ShowOrNextButton(model.wordState, model.callback),
+                )
+              ],
             ),
             bottomNavigationBar: new BottomNavigationBar(
                 onTap: (int index) {
@@ -129,8 +116,7 @@ class ShowOrNextButton extends StatelessWidget {
   const ShowOrNextButton(this._wordState, this._callback);
 
   @override
-  Widget build(BuildContext context) =>
-      RaisedButton(
+  Widget build(BuildContext context) => RaisedButton(
         onPressed: _callback,
         child: Text(_buttonText, key: showOrNextButtonKey),
       );
@@ -149,12 +135,11 @@ class MainScreenModel {
 
   WordState get wordState => _store.state.wordState;
 
-  Future<Word> get word async {
-//    WordListSpec listSpec = store.state.currentWordList;
-//    String fileName = listSpec.fileName;
-    String assetName = 'resources/lessons/lesson1';
-    String data = await rootBundle.loadString(assetName, cache: true);
-    WordList wordList = WordList.fromString(data);
+  Word get word {//todo test
+    WordListSpec listSpec = _store.state.currentWordList;
+    WordList wordList = listSpec.wordList;
     return wordList.words[index];
   }
+
+  ShowOrNextButtonClicked get callback => () => _store.dispatch(WordNext());
 }

@@ -36,3 +36,13 @@ class WordListSelectedAction extends StateSwitchAction {
 
   get selected => _selected;
 }
+
+class WordNext extends StateSwitchAction {
+
+  @override//todo test
+  AppState invoke(AppState initialState) => initialState.forNext();
+
+  @override//todo test
+  String toString() => 'WordNext';
+}
+

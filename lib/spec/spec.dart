@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter_app2/spec/setup.dart';
+import 'package:flutter_app2/vocab/word_list.dart';
+import 'package:flutter_app2/vocab/lessons/lessons.dart';
 import 'package:xml/xml.dart' as xml;
 
 const TITLE = "Title";
@@ -36,10 +40,7 @@ class Spec {
   }
 
   Spec.fromXml(xml.XmlParent parent) {
-    title = parent
-        .findAllElements(TITLE)
-        .first
-        .text;
+    title = parent.findAllElements(TITLE).first.text;
   }
 
   @override
@@ -47,7 +48,6 @@ class Spec {
 }
 
 class WordListSpec extends Spec {
-
   String fileName;
 
   WordListSpec.fromString(String title, String fileName)
@@ -56,27 +56,32 @@ class WordListSpec extends Spec {
   }
 
   WordListSpec.fromXml(xml.XmlParent parent) : super.fromXml(parent) {
-    fileName = parent
-        .findAllElements(FILE_TAG)
-        .first
-        .text;
+    fileName = parent.findAllElements(FILE_TAG).first.text;
   }
+
+  WordList get wordList => Lessons().lesson(fileName);//todo test
 }
 
 class ChapterSpec extends Spec {
   List<WordListSpec> wordLists = [];
 
   ChapterSpec.fromXml(xml.XmlParent parent) : super.fromXml(parent) {
-    parent.findAllElements(WORD_LIST).forEach((child) => wordLists.add(new WordListSpec.fromXml(child)));
-    wordLists.add(new WordListSpec.fromString(FAVOURITES, FAVOURITES_FILE_NAME));
+    parent
+        .findAllElements(WORD_LIST)
+        .forEach((child) => wordLists.add(new WordListSpec.fromXml(child)));
+    wordLists
+        .add(new WordListSpec.fromString(FAVOURITES, FAVOURITES_FILE_NAME));
   }
 }
 
 class ApplicationSpec extends Spec {
   List<ChapterSpec> chapters = [];
+
   ApplicationSpec.fromXml(xml.XmlParent parent) : super.fromXml(parent) {
-    parent.findAllElements(CHAPTER).forEach((chapterNode) => chapters.add(new ChapterSpec.fromXml(chapterNode)));
+    parent.findAllElements(CHAPTER).forEach(
+        (chapterNode) => chapters.add(new ChapterSpec.fromXml(chapterNode)));
   }
 
-  ChapterSpec chapterForName(String name) => chapters.firstWhere((chapterSpec) => chapterSpec.title == name);
+  ChapterSpec chapterForName(String name) =>
+      chapters.firstWhere((chapterSpec) => chapterSpec.title == name);
 }

@@ -11,11 +11,19 @@ void main() {
     expect(spec.fileName, fileName);
   });
 
+  final xmlText = '''<WordList><Title>Lesson 1</Title><File>lesson1</File></WordList>''';
   test('construct from XML', () {
-    String text = '''<WordList><Title>Lesson 1</Title><File>lesson1</File></WordList>''';
-    xml.XmlParent parent = xml.parse(text);
+    xml.XmlParent parent = xml.parse(xmlText);
     WordListSpec spec = new WordListSpec.fromXml(parent);
     expect(spec.title, 'Lesson 1');
     expect(spec.fileName, 'lesson1');
+  });
+
+  test('word list', () {
+    xml.XmlParent parent = xml.parse(xmlText);
+    WordListSpec spec = new WordListSpec.fromXml(parent);
+    var wordList = spec.wordList;
+    expect(wordList.words[0].word, 'anda');
+    expect(wordList.words.length, 24);
   });
 }

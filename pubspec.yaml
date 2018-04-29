@@ -17,6 +17,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  assets:
-   - resources/lessons/lesson1
+#  assets:
+#   - resources/lessons/lesson1
 

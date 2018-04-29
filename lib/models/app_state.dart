@@ -13,7 +13,7 @@ class AppState {
 
   AppState.initial()
       : chapterState = ChapterState.start(),
-        wordState = WordState.initial();//todo test
+        wordState = WordState.initial();
 
   AppState(this.chapterState, this.wordState);
 
@@ -25,11 +25,13 @@ class AppState {
       : chapterState = ChapterState.withIndexedChapter(index),
         wordState = WordState(0, false);
 
-  get currentWordList => chapterState.currentWordList; //todo test
+  AppState forNext() => AppState(chapterState, wordState.forNext()); //todo test ... indices
 
-  get currentChapter => chapterState.currentChapter;//todo test
+  WordListSpec get currentWordList => chapterState.currentWordList;
 
-  get applicationSpec => chapterState.applicationSpec;//todo test
+  ChapterSpec get currentChapter => chapterState.currentChapter;
+
+  ApplicationSpec get applicationSpec => chapterState.applicationSpec;
 
   @override
   bool operator ==(Object other) =>
@@ -85,13 +87,19 @@ class WordState {
 
   WordState.initial()
       : index = 0,
-        showDefinition = false; //todo test
+        showDefinition = false;
 
   WordState(this.index, this.showDefinition);
 
   WordState.withIndex(this.index) : showDefinition = false;
 
   WordState toggleShowDefinition() => WordState(index, !showDefinition);
+
+  WordState forNext() {//todo test - what to do at end??
+    int newIndex = showDefinition ? index + 1 : index;
+    bool newShowDefinition = !showDefinition;
+    return WordState(newIndex, newShowDefinition);
+  }
 
   @override
   bool operator ==(Object other) =>
