@@ -53,4 +53,3 @@ class RepeatList extends StateSwitchAction {
   @override
   String toString() => 'RepeatList';
 }
-

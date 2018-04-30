@@ -58,7 +58,7 @@ class MainScreen extends StatelessWidget {
                     )),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: ShowOrNextButton(model.wordState, model.callbackForNext),
+                  child: _ListNavigator(model),
                 )
               ],
             ),
@@ -78,10 +78,10 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
-class ListNavigator extends StatelessWidget{//todo test
+class _ListNavigator extends StatelessWidget{
   final MainScreenModel _model;
 
-  const ListNavigator(this._model);
+  const _ListNavigator(this._model);
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +136,7 @@ class ShowOrNextButton extends StatelessWidget {
   String get _buttonText => _wordState.showDefinition ? 'Next' : 'Show';
 }
 
-class RepeatListButton extends StatelessWidget {//todo test
+class RepeatListButton extends StatelessWidget {
   final RepeatListButtonClicked _callback;
 
   const RepeatListButton(this._callback);
