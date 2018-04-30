@@ -1,0 +1,34 @@
+const String lesson51= '''agak=rather
+bagaimana=how? What is ... like?
+barat daya=south west
+barat=west, western, the west
+barat laut=north west
+baru-baru ini=recently
+berawan=cloudy
+berhujan=rainy
+berangin=windy
+derajat=a degree, degrees
+di antaranya=among them
+hujan=to rain, rain
+iklim=the climate
+kering=dry
+musim=a season
+musim kering=the dry season
+musim hujan=the rainy season, the wet season
+musim panas=summer
+musim dingin=winter
+panas=hot, warm
+para=(a marker of a plural noun in certain contexts)
+pemirsa=a television viewer
+ramalan=a prediction, a prophecy
+sekian=(The marker word indicating that a speech, narrative, film, statement etc. has finished.)
+selatan=south, southern
+suhu=the temperature, a temperature of ...
+tenggara=south east
+tepi=the edge, the side, the bank (of a river)
+timur=east, eastern
+timur laut=north east
+utara=north, northern
+Celcius=Celcius, centigrade (when you are measuring temperature)
+lembab=humid, hot and sticky (talking about the weather), moist
+''';

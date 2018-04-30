@@ -36,7 +36,7 @@ void main() {
     });
 
     test('callback',() {
-      model.callback();
+      model.callbackForNext();
       expect(lastAction, isInstanceOf<WordNext>());
     });
 

@@ -23,13 +23,48 @@ main() {
       expect(state.wordState, WordState.initial());
     });
 
-    test('toggle', () {
+    test('forNext', () {
       ChapterState chapterState = ChapterState(ch1,wl1Ch1);
       WordState wordState = WordState(3, false);
       AppState state = AppState(chapterState, wordState);
-      AppState toggled = state.toggle();
+      AppState toggled = state.forNext();
       expect(toggled.chapterState, chapterState);
       expect(toggled.wordState, wordState.toggleShowDefinition());
+    });
+
+    test('repeat', () {
+      ChapterState chapterState = ChapterState(ch1,wl1Ch1);
+      AppState state = AppState(chapterState, WordState(3, false));
+      AppState repeated = state.forRepeat();
+      expect(repeated.chapterState, chapterState);
+      expect(repeated.wordState, WordState(0, false));
+
+      state = AppState(chapterState, WordState(5, true));
+      repeated = state.forRepeat();
+      expect(repeated.chapterState, chapterState);
+      expect(repeated.wordState, WordState(0, false));
+    });
+
+    test('at end', () {
+      int listSize = wl1Ch1.wordList.words.length;
+      ChapterState chapterState = ChapterState(ch1,wl1Ch1);
+      for (int i=0; i<listSize-2; i++) {
+        WordState wordState = WordState(i, false);
+        AppState state = AppState(chapterState, wordState);
+        expect(state.atEndOfCurrentList, false);
+
+        wordState = WordState(i, true);
+        state = AppState(chapterState, wordState);
+        expect(state.atEndOfCurrentList, false);
+      }
+      //At end, but still to display the definition.
+      WordState wordState = WordState(listSize-1, false);
+      AppState state = AppState(chapterState, wordState);
+      expect(state.atEndOfCurrentList, false);
+
+      wordState = WordState(listSize-1, true);
+      state = AppState(chapterState, wordState);
+      expect(state.atEndOfCurrentList, true);
     });
 
     test('current word list', () {

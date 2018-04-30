@@ -39,10 +39,18 @@ class WordListSelectedAction extends StateSwitchAction {
 
 class WordNext extends StateSwitchAction {
 
-  @override//todo test
+  @override
   AppState invoke(AppState initialState) => initialState.forNext();
 
-  @override//todo test
+  @override
   String toString() => 'WordNext';
+}
+class RepeatList extends StateSwitchAction {
+
+  @override
+  AppState invoke(AppState initialState) => initialState.forRepeat();
+
+  @override
+  String toString() => 'RepeatList';
 }
 

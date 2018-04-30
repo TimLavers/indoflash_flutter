@@ -1,0 +1,10 @@
+const String lesson13= '''berapa=how much, how many
+jumlah=the total amount, the total, an amount
+kurang=minus
+ratus=hundred
+ribu=thousand
+rupiah=rupiah
+sama=the same
+tambah=plus
+tanda tangan=a signature
+''';

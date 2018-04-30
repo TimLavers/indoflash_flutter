@@ -1,7 +1,5 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_app2/actions/actions.dart';
 import 'package:flutter_app2/keys/keys.dart';
 import 'package:flutter_app2/models/app_state.dart';
@@ -60,7 +58,7 @@ class MainScreen extends StatelessWidget {
                     )),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: ShowOrNextButton(model.wordState, model.callback),
+                  child: ShowOrNextButton(model.wordState, model.callbackForNext),
                 )
               ],
             ),
@@ -78,6 +76,20 @@ class MainScreen extends StatelessWidget {
                 ]),
           ),
     );
+  }
+}
+class ListNavigator extends StatelessWidget{//todo test
+  final MainScreenModel _model;
+
+  const ListNavigator(this._model);
+
+  @override
+  Widget build(BuildContext context) {
+    if (_model.state.atEndOfCurrentList) {
+      return RepeatListButton(_model.callbackForRepeat);
+    } else {
+      return ShowOrNextButton(_model.wordState, _model.callbackForNext);
+    }
   }
 }
 
@@ -124,6 +136,18 @@ class ShowOrNextButton extends StatelessWidget {
   String get _buttonText => _wordState.showDefinition ? 'Next' : 'Show';
 }
 
+class RepeatListButton extends StatelessWidget {//todo test
+  final RepeatListButtonClicked _callback;
+
+  const RepeatListButton(this._callback);
+
+  @override
+  Widget build(BuildContext context) => RaisedButton(
+        onPressed: _callback,
+        child: Text('Repeat List', key: repeateListButtonKey),
+      );
+}
+
 class MainScreenModel {
   final Store<AppState> _store;
 
@@ -141,5 +165,9 @@ class MainScreenModel {
     return wordList.words[index];
   }
 
-  ShowOrNextButtonClicked get callback => () => _store.dispatch(WordNext());
+  AppState get state => _store.state;//todo test
+
+  ShowOrNextButtonClicked get callbackForNext => () => _store.dispatch(WordNext());
+
+  RepeatListButtonClicked get callbackForRepeat => () => _store.dispatch(RepeatList());//todo test
 }

@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 typedef void ChapterSelected(int index);
 typedef void WordListSelected(int index);
 typedef void ShowOrNextButtonClicked();
+typedef void RepeatListButtonClicked();
 
 @immutable
 class AppState {
@@ -19,19 +20,27 @@ class AppState {
 
   AppState.forChapter(this.chapterState) : wordState = WordState(0, false);
 
-  AppState toggle() => AppState(chapterState, wordState.toggleShowDefinition());
-
   AppState.forIndexedChapter(int index)
       : chapterState = ChapterState.withIndexedChapter(index),
         wordState = WordState(0, false);
 
-  AppState forNext() => AppState(chapterState, wordState.forNext()); //todo test ... indices
+  AppState forNext() =>
+      AppState(chapterState, wordState.forNext()); //todo test ... indices
+
+  AppState forRepeat() => AppState(chapterState, WordState(0, false));
 
   WordListSpec get currentWordList => chapterState.currentWordList;
+
+  int get _lengthOfCurrentWordList =>
+      currentWordList.wordList.words.length;
 
   ChapterSpec get currentChapter => chapterState.currentChapter;
 
   ApplicationSpec get applicationSpec => chapterState.applicationSpec;
+
+  bool get atEndOfCurrentList =>
+      wordState.index == (_lengthOfCurrentWordList - 1) &&
+      wordState.showDefinition;
 
   @override
   bool operator ==(Object other) =>
@@ -95,7 +104,8 @@ class WordState {
 
   WordState toggleShowDefinition() => WordState(index, !showDefinition);
 
-  WordState forNext() {//todo test - what to do at end??
+  WordState forNext() {
+    //todo test - what to do at end??
     int newIndex = showDefinition ? index + 1 : index;
     bool newShowDefinition = !showDefinition;
     return WordState(newIndex, newShowDefinition);

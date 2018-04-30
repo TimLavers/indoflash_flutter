@@ -6,3 +6,4 @@ const chapterSelectorKey = Key('_chapter_selector_');
 const wordKey = Key('__word__');
 const definitionKey = Key('__definition__');
 const showOrNextButtonKey = Key('__show_or_next_button__');
+const repeateListButtonKey = Key('__repeat_list_button__');

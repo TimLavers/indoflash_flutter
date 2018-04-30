@@ -1,0 +1,18 @@
+const String lesson31= '''andai kata=supposing, supposing that, in the event that
+membayar=to pay
+menang=to win
+beristirahat=to rest, to take a break
+membeli=to buy
+di dalam=inside, within
+kolam renang=a swimming pool
+berjudi=to gamble
+menjadi=to become
+tengah malam=midnight
+anak kecil=a little child
+terus=to continue to, to keep on _ing
+kaya=rich, wealthy
+tiba=to arrive
+singgah=to stop by, to stop off
+terlambat=late (not on time)
+karcis=a ticket (especially bus, train, cinema)
+''';

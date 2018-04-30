@@ -1,0 +1,25 @@
+const String lesson7= '''bagus= excellent, great
+baru  =new
+bersih =clean
+bukan  =no, not (to negate a noun)
+cantik =pretty, good looking
+enak   =delicious
+ini    =this, these
+itu    =that, those
+kamar  =a room
+kecil  =small
+kosong =empty
+kotor  =dirty
+mahal  =expensive
+manis  =sweet
+minuman=a drink
+murah  =cheap
+orang  =a person
+pandai =clever
+ramai  =crowded
+rumah sakit=a hospital
+yang =which, who, that
+besar=big
+negara = a country
+ma'af  =sorry, I apologise
+''';

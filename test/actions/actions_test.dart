@@ -28,6 +28,7 @@ main() {
       expect(action.toString(), "WordListSelectedAction{selected: 2}");
     });
   });
+
   group('ChapterSelectedAction', () {
     test('invoke', () {
       ChapterSelectedAction action = ChapterSelectedAction(3);
@@ -44,6 +45,31 @@ main() {
     test('toString', () {
       ChapterSelectedAction action = ChapterSelectedAction(2);
       expect(action.toString(), "ChapterSelectedAction{selected: 2}");
+    });
+  });
+
+  group('WordNext', () {
+    test('invoke', () {
+      AppState currentState = AppState.initial();
+      AppState transformed = WordNext().invoke(currentState);
+      expect(transformed.wordState.showDefinition, true);
+    });
+
+    test('toString', () {
+      expect(WordNext().toString(),'WordNext');
+    });
+  });
+  group('RepeatList', () {
+    ChapterState chapterState = ChapterState(ch1,wl1);
+    test('invoke', () {
+      AppState currentState = AppState(chapterState, WordState(4, true));
+      AppState transformed = RepeatList().invoke(currentState);
+      expect(transformed.wordState.showDefinition, false);
+      expect(transformed.wordState.index, 0);
+    });
+
+    test('toString', () {
+      expect(RepeatList().toString(),'RepeatList');
     });
   });
 }
