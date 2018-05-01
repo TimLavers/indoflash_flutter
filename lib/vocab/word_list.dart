@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'dart:math';
 import 'package:flutter_app2/vocab/word.dart';
 
 class WordList {
@@ -25,6 +26,13 @@ class WordList {
     }
   }
 
+  WordList shuffled() {
+    List<Word> newList = List<Word>();
+    newList.addAll(words);
+    newList.shuffle(Random());
+    return WordList.fromList(newList);
+  }
+
   void remove(Word word) => words.remove(word);
 
   String toString() => "WordList$words";
@@ -34,7 +42,7 @@ class WordList {
       identical(this, other) ||
           other is WordList &&
               runtimeType == other.runtimeType &&
-              new ListEquality().equals(words, other.words);
+              ListEquality().equals(words, other.words);
 
   @override
   int get hashCode => words.length;

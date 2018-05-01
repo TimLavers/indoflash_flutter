@@ -13,9 +13,9 @@ main() {
     test('invoke', () {
       WordListSelectedAction action = WordListSelectedAction(3);
       AppState currentState = AppState.initial();
-      expect(currentState.currentWordList, wl1);
+      expect(currentState.currentWordListTitle, wl1.title);
       AppState updated = action.invoke(currentState);
-      expect(updated.currentWordList, wl4);
+      expect(updated.currentWordListTitle, wl4.title);
     });
 
     test('selected', () {
@@ -62,7 +62,7 @@ main() {
   group('RepeatList', () {
     ChapterState chapterState = ChapterState(ch1,wl1);
     test('invoke', () {
-      AppState currentState = AppState(chapterState, WordState(4, true));
+      AppState currentState = AppState(chapterState, WordState(4, true), false);
       AppState transformed = RepeatList().invoke(currentState);
       expect(transformed.wordState.showDefinition, false);
       expect(transformed.wordState.index, 0);

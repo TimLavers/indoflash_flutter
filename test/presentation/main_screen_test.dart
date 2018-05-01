@@ -21,28 +21,28 @@ void main() {
   var lastAction;
 
   final initialStateStore = Store<AppState>(
-        (AppState state, action) {
-          lastAction = action;
-          return state;
-        },
+    (AppState state, action) {
+      lastAction = action;
+      return state;
+    },
     initialState: AppState.initial(),
   );
 
   final int length1 = wl1.wordList.words.length;
-  final AppState endOfLesson1State = AppState(ChapterState(ch1, wl1), WordState(length1 - 1, true));
+  final AppState endOfLesson1State = AppState(ChapterState(ch1, wl1),
+      WordState(length1 - 1, true), false);
   final endOfListStore = Store<AppState>(
-        (AppState state, action) {
-          lastAction = action;
-          return state;
-        },
+    (AppState state, action) {
+      lastAction = action;
+      return state;
+    },
     initialState: endOfLesson1State,
   );
 
   createMainScreen(Store<AppState> store) => StoreProvider<AppState>(
       store: store,
       child: StoreBuilder(
-        builder: (BuildContext context, Store<AppState> store) =>
-            MaterialApp(
+        builder: (BuildContext context, Store<AppState> store) => MaterialApp(
               title: "Testing",
               home: MainScreen(),
               routes: {
@@ -52,14 +52,14 @@ void main() {
             ),
       ));
 
-  testWidgets('initial word', (WidgetTester tester) async{
+  testWidgets('initial word', (WidgetTester tester) async {
     final widget = createMainScreen(initialStateStore);
     await tester.pumpWidget(widget);
-    expect(textForKey(wordKey), 'anda');//Lesson1 word 1
+    expect(textForKey(wordKey), 'anda'); //Lesson1 word 1
     expect(textForKey(definitionKey), '');
   });
 
-  testWidgets('show next', (WidgetTester tester) async{
+  testWidgets('show next', (WidgetTester tester) async {
     final widget = createMainScreen(initialStateStore);
     await tester.pumpWidget(widget);
     expect(find.byKey(repeateListButtonKey).evaluate().isEmpty, true);
@@ -67,8 +67,8 @@ void main() {
     expect(lastAction, isInstanceOf<WordNext>());
   });
 
-  testWidgets('repeat list', (WidgetTester tester) async{
-    expect(endOfListStore.state.atEndOfCurrentList, true);//sanity
+  testWidgets('repeat list', (WidgetTester tester) async {
+    expect(endOfListStore.state.atEndOfCurrentList, true); //sanity
     final widget = createMainScreen(endOfListStore);
     await tester.pumpWidget(widget);
     expect(find.byKey(showOrNextButtonKey).evaluate().isEmpty, true);
@@ -81,8 +81,8 @@ void main() {
 
     await tester.pumpWidget(widget);
 
-    final NavigatorState navigator = tester.state<NavigatorState>(
-        find.byType(Navigator));
+    final NavigatorState navigator =
+        tester.state<NavigatorState>(find.byType(Navigator));
     expect(navigator.canPop(), false);
 
     var byKey = find.byIcon(Icons.add_call);

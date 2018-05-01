@@ -32,6 +32,20 @@ void main() {
     expect(wl==w123, true);
   });
 
+  test('shuffled', () {
+    Word lima = Word('lima', 'five');
+    Word enam = Word('enam', 'six');
+    Word tujuh = Word('tujuh', 'seven');
+    WordList plain = WordList.fromList([satu, dua, tiga, empat, lima, enam, tujuh]);
+    WordList shuffled = plain.shuffled();
+    expect(shuffled == plain, false);
+    expect(shuffled.words.length, plain.words.length);
+    shuffled.words.forEach((Word word) => expect(plain.words.contains(word), true));
+
+    WordList anotherShuffled = plain.shuffled();
+    expect(shuffled == anotherShuffled, false);
+  });
+
   test('remove word', () {
     WordList wl = new WordList.fromList([satu, dua, tiga, empat]);
     wl.remove(empat);

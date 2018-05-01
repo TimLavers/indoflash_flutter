@@ -153,17 +153,13 @@ class MainScreenModel {
 
   MainScreenModel(this._store);
 
-  String get listName => _store.state.currentWordList.title;
+  String get listName => _store.state.currentWordListTitle;
 
   int get index => _store.state.wordState.index;
 
   WordState get wordState => _store.state.wordState;
 
-  Word get word {//todo test
-    WordListSpec listSpec = _store.state.currentWordList;
-    WordList wordList = listSpec.wordList;
-    return wordList.words[index];
-  }
+  Word get word => _store.state.currentWord;//todo test
 
   AppState get state => _store.state;//todo test
 
