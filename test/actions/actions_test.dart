@@ -72,4 +72,16 @@ main() {
       expect(RepeatList().toString(),'RepeatList');
     });
   });
+  group('ToggleShuggle', () {
+    test('invoke', () {
+      ChapterState chapterState = ChapterState(ch1,wl1);
+      AppState currentState = AppState(chapterState, WordState(4, true), false);
+      AppState transformed = ToggleShuffle().invoke(currentState);
+      expect(transformed.listState.shuffled, true);
+    });
+
+    test('toString', () {
+      expect(ToggleShuffle().toString(),'ToggleShuffle');
+    });
+  });
 }

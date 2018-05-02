@@ -17,6 +17,37 @@ main() {
   ListState shuffled = ListState(true, false);
   ListState straight = ListState(false, false);
 
+  void checkThatStatesHaveDifferentWordTraversalOrderButShareWordsFromList(AppState stateA, AppState stateB, ChapterState chapterState) {
+    int listSize = chapterState.currentWordList.wordList.words.length;
+    //Record the words for stateA.
+    List<Word> wordsA = [];
+    for (int i=0; i<listSize; i++) {
+      wordsA.add(stateA.currentWord);
+      stateA = stateA.forNext().forNext();//Word and definition.
+    }
+    //Record the words for stateB.
+    List<Word> wordsB = [];
+    for (int i=0; i<listSize; i++) {
+      wordsB.add(stateB.currentWord);
+      stateB = stateB.forNext().forNext();//Word and definition.
+    }
+    //Check that the lists contain the same words.
+    expect(wordsB.toSet(), wordsA.toSet());
+    //Check that we have traversed all of the words.
+    expect(chapterState.currentWordList.wordList.words.toSet(), wordsA.toSet());
+    expect(ListEquality().equals(wordsB,wordsA), false);
+  }
+
+  void checkThatWordsAreInStraightOrder(AppState state, ChapterState chapterState) {
+    int listSize = chapterState.currentWordList.wordList.words.length;
+    List<Word> words = [];
+    for (int i=0; i<listSize; i++) {
+      words.add(state.currentWord);
+      state = state.forNext().forNext();//Word and definition.
+    }
+    expect(ListEquality().equals(chapterState.currentWordList.wordList.words,words), true);
+  }
+
   group('constructors', () {
     test('default constructor', () {
       ChapterState chapterState = ChapterState(ch1, wl1Ch1);
@@ -119,35 +150,28 @@ main() {
     });
 
     test('repeat shuffled', () {
-      int listSize = wl1Ch1.wordList.words.length;
       ChapterState chapterState = ChapterState(ch1, wl1Ch1);
+      int listSize = chapterState.currentWordList.wordList.words.length;
       AppState state = AppState(chapterState, WordState(listSize - 1, true), true);
       AppState repeated = state.forRepeat();
       expect(repeated.chapterState, chapterState);
       expect(repeated.wordState, WordState(0, false));
       expect(repeated.listState.shuffled, true);
-      //Record the words.
-      List<Word> repeatedWords = [];
-      for (int i=0; i<listSize; i++) {
-        repeatedWords.add(repeated.currentWord);
-        repeated = repeated.forNext().forNext();//Word and definition.
-      }
-      repeated = repeated.forRepeat();
-      expect(repeated.listState.shuffled, true);
-      //Record the words for the repeated repeat.
-      List<Word> repeatedRepeatedWords = [];
-      for (int i=0; i<listSize; i++) {
-        repeatedRepeatedWords.add(repeated.currentWord);
-        repeated = repeated.forNext().forNext();//Word and definition.
-      }
-      //Sanity check that the lists contain the same words.
-      expect(repeatedRepeatedWords.toSet(), repeatedWords.toSet());
-      //Sanity check that we have traversed all of the words.
-      expect(chapterState.currentWordList.wordList.words.toSet(), repeatedWords.toSet());
-      //The lists of repeated words should be different
-      //(unless by some extraordinary chance they are shuffled
-      //into the same order).
-      expect(ListEquality().equals(repeatedRepeatedWords,repeatedWords), false);
+      AppState twiceRepeated = repeated.forRepeat();
+      checkThatStatesHaveDifferentWordTraversalOrderButShareWordsFromList(repeated, twiceRepeated, chapterState);
+    });
+
+    test('toggle shuffled', () {
+      ChapterState chapterState = ChapterState(ch1, wl1Ch1);
+      int listSize = chapterState.currentWordList.wordList.words.length;
+      AppState state = AppState(chapterState, WordState(listSize - 1, true), true);
+      AppState toggledOnce = state.forToggleShuffle();
+      expect(toggledOnce.chapterState, chapterState);
+      expect(toggledOnce.wordState, WordState(0, false));
+      expect(toggledOnce.listState.shuffled, false);
+      checkThatStatesHaveDifferentWordTraversalOrderButShareWordsFromList(state, toggledOnce, chapterState);
+      AppState toggledTwice = state.forToggleShuffle();
+      checkThatWordsAreInStraightOrder(toggledOnce, chapterState);//todo this should fail
     });
 
     test('at end', () {

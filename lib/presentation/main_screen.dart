@@ -190,5 +190,5 @@ class MainScreenModel {
       () => _store.dispatch(WordNext());
 
   VoidCallback get callbackForRepeat =>
-      () => _store.dispatch(RepeatList()); //todo test
+      () => _store.dispatch(RepeatList());
 }

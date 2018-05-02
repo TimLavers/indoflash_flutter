@@ -48,6 +48,10 @@ void main() {
       expect(retrieved.word, 'anda');//The first entry.
     });
 
+    test('state', () {
+      expect(identical(model.state, store.state),true);
+    });
+
     test('callback for shuffle toggle', () {
       VoidCallback callback = model.callbackForShuffleToggle;
       callback();

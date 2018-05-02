@@ -77,6 +77,18 @@ class AppState {
     return AppState._copy(chapterState, WordState(0, false), listState, _words);
   }
 
+  AppState forToggleShuffle() {
+    ListState newListState = listState.toggleShuffle();
+    //If it was shuffled, we get the straight list.
+    //If it was straight, we get a shuffled version.
+    List<Word> newList = newListState.shuffled ?
+    _currentWordList.wordList.shuffled().words :
+    _currentWordList.wordList.words;
+    //We go back to the beginning of the list.
+    WordState start = WordState(0, false);
+    return AppState._copy(chapterState, start, newListState, newList);
+  }
+
   String get currentWordListTitle => chapterState.currentWordList.title;
 
   WordListSpec get _currentWordList => chapterState.currentWordList;

@@ -49,11 +49,11 @@ class RepeatList extends StateSwitchAction {
 
   @override
   String toString() => 'RepeatList';
-}//todo test
+}
 class ToggleShuffle extends StateSwitchAction {
 
   @override
-  AppState invoke(AppState initialState) => initialState.forRepeat();
+  AppState invoke(AppState initialState) => initialState.forToggleShuffle();
 
   @override
   String toString() => 'ToggleShuffle';
