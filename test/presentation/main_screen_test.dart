@@ -76,6 +76,14 @@ void main() {
     expect(lastAction, isInstanceOf<RepeatList>());
   });
 
+  testWidgets('shuffle', (WidgetTester tester) async {
+    expect(endOfListStore.state.listState.shuffled, false); //sanity
+    final widget = createMainScreen(endOfListStore);
+    await tester.pumpWidget(widget);
+    await tester.tap(find.byKey(shuffleToggleButtonKey));
+    expect(lastAction, isInstanceOf<ToggleShuffle>());
+  });
+
   testWidgets('Navigation Buttons', (WidgetTester tester) async {
     final widget = createMainScreen(initialStateStore);
 

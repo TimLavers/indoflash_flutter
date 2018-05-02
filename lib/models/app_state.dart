@@ -6,8 +6,6 @@ import 'package:meta/meta.dart';
 
 typedef void ChapterSelected(int index);
 typedef void WordListSelected(int index);
-typedef void ShowOrNextButtonClicked();
-typedef void RepeatListButtonClicked();
 
 /// The state of the application. This consists of the chapter,
 /// the word list, the index of the currently showing word,

@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter_app2/actions/actions.dart';
 import 'package:flutter_app2/models/app_state.dart';
 import 'package:flutter_app2/presentation/main_screen.dart';
 import 'package:flutter_app2/spec/spec.dart';
+import 'package:flutter_app2/vocab/word.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:redux/redux.dart';
 
@@ -40,10 +43,27 @@ void main() {
       expect(lastAction, isInstanceOf<WordNext>());
     });
 
-    //This test fails because the lesson file asset is not found during tests.
-//    test('word', () async {
-//      Word retrieved = await model.word;
-//      expect(retrieved.word, 'satu');//The first entry.
-//    });
+    test('word', () {
+      Word retrieved = model.word;
+      expect(retrieved.word, 'anda');//The first entry.
+    });
+
+    test('callback for shuffle toggle', () {
+      VoidCallback callback = model.callbackForShuffleToggle;
+      callback();
+      expect(lastAction, isInstanceOf<ToggleShuffle>());
+    });
+
+    test('callback for next', () {
+      VoidCallback callback = model.callbackForNext;
+      callback();
+      expect(lastAction, isInstanceOf<WordNext>());
+    });
+
+    test('callback for repeat', () {
+      VoidCallback callback = model.callbackForRepeat;
+      callback();
+      expect(lastAction, isInstanceOf<RepeatList>());
+    });
   });
 }
