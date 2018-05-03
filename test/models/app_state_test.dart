@@ -172,7 +172,7 @@ main() {
       expect(toggledOnce.listState.shuffled, true);
       checkThatStatesHaveDifferentWordTraversalOrderButShareWordsFromList(state, toggledOnce, chapterState);
       AppState toggledTwice = toggledOnce.forToggleShuffle();
-      checkThatWordsAreInStraightOrder(toggledTwice, chapterState);//todo this should fail
+      checkThatWordsAreInStraightOrder(toggledTwice, chapterState);
     });
 
     test('toggle shuffled from shuffled', () {

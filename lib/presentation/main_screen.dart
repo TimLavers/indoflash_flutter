@@ -21,10 +21,17 @@ class MainScreen extends StatelessWidget {
               title: Row(
                 children: [
                   Container(
+                      padding: EdgeInsets.only(),
+                      margin: EdgeInsets.only(right:  10.0),
+                      child: Image(
+                          image: AssetImage('images/ic_launcher.png'),
+                          height: 36.0,
+                          width: 36.0)),
+                  Container(
                       child: Text(MAIN_SCREEN,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 28.0,
                             color: Colors.white,
                           )),
                       color: Colors.black)
@@ -59,8 +66,8 @@ class MainScreen extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       _ListNavigator(model),
-                      ShuffleToggleButton(model.state.listState,
-                          model.callbackForShuffleToggle)
+                      ShuffleToggleButton(
+                          model.state.listState, model.callbackForShuffleToggle)
                     ],
                   ),
                 )
@@ -106,7 +113,9 @@ class WordDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
       _createTextBox(_word.word, wordKey),
       _createTextBox(_definitionTextToShow, definitionKey),
     ]);
@@ -123,6 +132,7 @@ class WordDisplay extends StatelessWidget {
           fontSize: 20.0,
         ),
         key: key,
+        textAlign: TextAlign.left,
       ));
 }
 
@@ -186,9 +196,7 @@ class MainScreenModel {
   VoidCallback get callbackForShuffleToggle =>
       () => _store.dispatch(ToggleShuffle());
 
-  VoidCallback get callbackForNext =>
-      () => _store.dispatch(WordNext());
+  VoidCallback get callbackForNext => () => _store.dispatch(WordNext());
 
-  VoidCallback get callbackForRepeat =>
-      () => _store.dispatch(RepeatList());
+  VoidCallback get callbackForRepeat => () => _store.dispatch(RepeatList());
 }
