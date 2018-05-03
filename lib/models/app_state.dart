@@ -34,7 +34,9 @@ class AppState {
   //flag and not showing favourites.
   AppState(this.chapterState, this.wordState, bool shuffled)
       : listState = ListState(shuffled, false),
-        _words = chapterState.currentWordList.wordList.words;
+        _words = shuffled
+            ? chapterState.currentWordList.wordList.shuffled().words
+            : chapterState.currentWordList.wordList.words;
 
   AppState._copy(
       this.chapterState, this.wordState, this.listState, this._words);
@@ -81,9 +83,14 @@ class AppState {
     ListState newListState = listState.toggleShuffle();
     //If it was shuffled, we get the straight list.
     //If it was straight, we get a shuffled version.
-    List<Word> newList = newListState.shuffled ?
-    _currentWordList.wordList.shuffled().words :
-    _currentWordList.wordList.words;
+
+    List<Word> newList = _currentWordList.wordList.words;
+    if (newListState.shuffled) {
+      newList = _currentWordList.wordList.shuffled().words;
+    }
+//    List<Word> newList = newListState.shuffled ?
+//    _currentWordList.wordList.shuffled().words :
+//    _currentWordList.wordList.words;
     //We go back to the beginning of the list.
     WordState start = WordState(0, false);
     return AppState._copy(chapterState, start, newListState, newList);
