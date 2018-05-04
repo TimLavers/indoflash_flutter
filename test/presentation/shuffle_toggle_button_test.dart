@@ -14,7 +14,7 @@ void main() {
   testWidgets('ShuffleToggleButton', (WidgetTester tester) async {
     var widget = createUI(ListState(true, true));
     await tester.pumpWidget(widget);
-    expect(textForKey(shuffleToggleButtonKey), 'Order');
+    expect(iconForKey(shuffleToggleButtonKey), 'images/ic_unshuffle.png');
     expect(clickCount, 0);
     //Check that tapping the button activates the callback.
     await tester.tap(find.byKey(shuffleToggleButtonKey));
@@ -30,7 +30,7 @@ void main() {
     //with true for showDefinition
     var widget = createUI(ListState(false, false));
     await tester.pumpWidget(widget);
-    expect(textForKey(shuffleToggleButtonKey), 'Shuffle');
+    expect(iconForKey(shuffleToggleButtonKey), 'images/ic_shuffle.png');
     expect(clickCount, 0);
     //Check that tapping the button activates the callback.
     await tester.tap(find.byKey(shuffleToggleButtonKey));

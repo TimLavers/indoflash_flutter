@@ -18,5 +18,13 @@ flutter:
   uses-material-design: true
 
   assets:
+   - images/ic_add_to_favourites.png
+   - images/ic_chapters.png
+   - images/ic_down_arrow.png
    - images/ic_launcher.png
+   - images/ic_lists.png
+   - images/ic_remove_from_favourites.png
+   - images/ic_shuffle.png
+   - images/ic_unshuffle.png
+   - images/ic_up_arrow.png
 

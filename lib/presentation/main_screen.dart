@@ -22,7 +22,7 @@ class MainScreen extends StatelessWidget {
                 children: [
                   Container(
                       padding: EdgeInsets.only(),
-                      margin: EdgeInsets.only(right:  10.0),
+                      margin: EdgeInsets.only(right: 10.0),
                       child: Image(
                           image: AssetImage('images/ic_launcher.png'),
                           height: 36.0,
@@ -113,9 +113,7 @@ class WordDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       _createTextBox(_word.word, wordKey),
       _createTextBox(_definitionTextToShow, definitionKey),
     ]);
@@ -158,10 +156,17 @@ class ShuffleToggleButton extends StatelessWidget {
   const ShuffleToggleButton(this._listState, this._callback);
 
   @override
-  Widget build(BuildContext context) => RaisedButton(
-        onPressed: _callback,
-        child: Text(_buttonText, key: shuffleToggleButtonKey),
-      );
+  Widget build(BuildContext context) {
+    return FlatButton(
+        key: shuffleToggleButtonKey, onPressed: _callback, child: _image);
+  }
+
+  Image get _image {
+    AssetImage assetImage = _listState.shuffled
+        ? AssetImage('images/ic_unshuffle.png')
+        : AssetImage('images/ic_shuffle.png');
+    return Image(image: assetImage, height: 24.0, width: 24.0);
+  }
 
   String get _buttonText => _listState.shuffled ? 'Order' : 'Shuffle';
 }
