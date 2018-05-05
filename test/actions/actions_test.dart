@@ -72,7 +72,7 @@ main() {
       expect(RepeatList().toString(),'RepeatList');
     });
   });
-  group('ToggleShuggle', () {
+  group('ToggleShuffle', () {
     test('invoke', () {
       ChapterState chapterState = ChapterState(ch1,wl1);
       AppState currentState = AppState(chapterState, WordState(4, true), false);
@@ -82,6 +82,18 @@ main() {
 
     test('toString', () {
       expect(ToggleShuffle().toString(),'ToggleShuffle');
+    });
+  });
+  group('ToggleIndonesianFirst', () {
+    test('invoke', () {
+      ChapterState chapterState = ChapterState(ch1,wl1);
+      AppState currentState = AppState(chapterState, WordState(4, true), false);
+      AppState transformed = ToggleIndonesianFirst().invoke(currentState);
+      expect(transformed.wordState.indonesianFirst, false);
+    });
+
+    test('toString', () {
+      expect(ToggleIndonesianFirst().toString(),'ToggleIndonesianFirst');
     });
   });
 }

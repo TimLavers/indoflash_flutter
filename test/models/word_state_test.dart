@@ -7,16 +7,26 @@ main() {
       WordState state = WordState(5, true);
       expect(state.index, 5);
       expect(state.showDefinition, true);
+      expect(state.indonesianFirst, true);
 
       state = WordState(2, false);
       expect(state.index, 2);
       expect(state.showDefinition, false);
+      expect(state.indonesianFirst, true);
     });
 
     test('initial', () {
       WordState state = WordState.initial();
       expect(state.index, 0);
       expect(state.showDefinition, false);
+      expect(state.indonesianFirst, true);
+    });
+
+    test('toggle indonesian first', () {
+      WordState state = WordState.initial().toggleIndonesianFirst();
+      expect(state.indonesianFirst, false);
+      state = state.toggleIndonesianFirst();
+      expect(state.indonesianFirst, true);
     });
 
     test('for next', () {
@@ -36,6 +46,13 @@ main() {
       forNext = forNext.forNext();
       expect(forNext.index, 2);
       expect(forNext.showDefinition, false);
+    });
+
+    test('indonesian second', () {
+      WordState state = WordState.initial().toggleIndonesianFirst();
+      expect(state.indonesianFirst, false);//sanity
+      expect(state.forNext().indonesianFirst, false);
+      expect(state.toggleShowDefinition().indonesianFirst, false);
     });
 
     test('constructor with index', () {
@@ -60,10 +77,12 @@ main() {
       WordState stateC = WordState(5, false);
       WordState stateD = WordState(2, true);
       WordState stateE = WordState(2, false);
+      WordState stateF = WordState(5, true).toggleIndonesianFirst();
       expect(stateA == stateB, true);
       expect(stateA == stateC, false);
       expect(stateA == stateD, false);
       expect(stateA == stateE, false);
+      expect(stateA == stateF, false);
     });
 
     test('hash code', () {

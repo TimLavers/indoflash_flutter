@@ -97,6 +97,9 @@ class AppState implements Navigation {
     return AppState._copy(chapterState, start, newListState, newList);
   }
 
+  AppState forToggleIndonsianFirst() => AppState._copy(
+      chapterState, wordState.toggleIndonesianFirst(), listState, _words);
+
   String get currentWordListTitle => chapterState.currentWordList.title;
 
   WordListSpec get _currentWordList => chapterState.currentWordList;
@@ -166,22 +169,31 @@ class ChapterState {
 class WordState {
   final int index;
   final bool showDefinition;
+  final bool indonesianFirst;
 
   WordState.initial()
       : index = 0,
-        showDefinition = false;
+        showDefinition = false,
+        indonesianFirst = true;
 
-  WordState(this.index, this.showDefinition);
+  WordState(this.index, this.showDefinition) : this.indonesianFirst = true;//todo this is probably wrong, need to carry indo first state
 
-  WordState.withIndex(this.index) : showDefinition = false;
+  WordState.withIndex(this.index)
+      : showDefinition = false,
+        this.indonesianFirst = true;//todo remove this method
 
-  WordState toggleShowDefinition() => WordState(index, !showDefinition);
+  WordState._copy(this.index, this.showDefinition, this.indonesianFirst);
+
+  WordState toggleShowDefinition() => WordState._copy(index, !showDefinition, indonesianFirst);
+
+  WordState toggleIndonesianFirst() =>
+      WordState._copy(0, false, !indonesianFirst);
 
   WordState forNext() {
     //todo test - what to do at end??
     int newIndex = showDefinition ? index + 1 : index;
     bool newShowDefinition = !showDefinition;
-    return WordState(newIndex, newShowDefinition);
+    return WordState._copy(newIndex, newShowDefinition, indonesianFirst);
   }
 
   @override
@@ -190,7 +202,8 @@ class WordState {
       other is WordState &&
           runtimeType == other.runtimeType &&
           index == other.index &&
-          showDefinition == other.showDefinition;
+          showDefinition == other.showDefinition &&
+          indonesianFirst == other.indonesianFirst;
 
   @override
   int get hashCode => index.hashCode ^ showDefinition.hashCode;

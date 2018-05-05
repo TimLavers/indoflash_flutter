@@ -60,20 +60,20 @@ class MainScreen extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(5.0),
                       child: WordDisplay(
-                          model.word, model.wordState.showDefinition),
+                          model.word,
+                          model.wordState.showDefinition,
+                      model.wordState.indonesianFirst ),
                       alignment: Alignment.topLeft,
                     )),
                 Row(
                   children: <Widget>[
-                    FlatButton(
-                      child: Icon(Icons.arrow_upward),
-                      onPressed: () {},
-                    ),
+                    indonesianFirstToggleButton(model.state.wordState, model.callbackForToggleIndonesianFirst),
                     FlatButton(
                       child: Icon(Icons.favorite),
                       onPressed: () {},
                     ),
-                    shuffleToggleButton(model.state.listState, model.callbackForShuffleToggle),
+                    shuffleToggleButton(
+                        model.state.listState, model.callbackForShuffleToggle),
                   ],
                 ),
                 Align(
@@ -128,18 +128,22 @@ class ListNavigator {
 class WordDisplay extends StatelessWidget {
   final Word _word;
   final bool _showDef;
+  final bool _indonesianFirst;
 
-  const WordDisplay(this._word, this._showDef);
+  const WordDisplay(this._word, this._showDef, this._indonesianFirst);
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _createTextBox(_word.word, wordKey),
+      _createTextBox(_wordToShow, wordKey),
       _createTextBox(_definitionTextToShow, definitionKey),
     ]);
   }
 
-  String get _definitionTextToShow => _showDef ? _word.definition : '';
+  String get _wordToShow => _indonesianFirst ? _word.word : _word.definition;
+
+  String get _definitionTextToShow =>
+      _showDef ? _indonesianFirst ? _word.definition : _word.word : '';
 
   Widget _createTextBox(String text, Key key) => Expanded(
       flex: 1,
@@ -157,7 +161,13 @@ class WordDisplay extends StatelessWidget {
 FlatButton shuffleToggleButton(ListState listState, VoidCallback callback) {
   IconData iconToUse = listState.shuffled ? Icons.straighten : Icons.shuffle;
   return FlatButton(
-      key: shuffleToggleButtonKey,
+      key: shuffleToggleButtonKey, child: Icon(iconToUse), onPressed: callback);
+}
+
+FlatButton indonesianFirstToggleButton(WordState state, VoidCallback callback) {
+  IconData iconToUse = state.indonesianFirst ? Icons.arrow_upward : Icons.arrow_downward;
+  return FlatButton(
+      key: indonesianFirstToggleButtonKey,
       child: Icon(iconToUse),
       onPressed: callback);
 }
@@ -183,4 +193,6 @@ class MainScreenModel {
   VoidCallback get callbackForNext => () => _store.dispatch(WordNext());
 
   VoidCallback get callbackForRepeat => () => _store.dispatch(RepeatList());
+
+  VoidCallback get callbackForToggleIndonesianFirst => () => _store.dispatch(ToggleIndonesianFirst());
 }

@@ -106,6 +106,17 @@ main() {
       expect(forNext.listState, listState);//todo favourites
     });
 
+    test('toggle indonesian first', () {
+      ChapterState chapterState = ChapterState(ch1, wl1Ch1);
+      WordState wordState = WordState(3, false);
+      ListState listState = ListState(false, false);
+      AppState state = AppState(chapterState, wordState, false);
+      AppState forNext = state.forToggleIndonsianFirst();
+      expect(forNext.chapterState, chapterState);
+      expect(forNext.wordState, wordState.toggleIndonesianFirst());
+      expect(forNext.listState, listState);
+    });
+
     test('next limits', () {
       int listSize = wl1Ch1.wordList.words.length;
       ChapterState chapterState = ChapterState(ch1, wl1Ch1);

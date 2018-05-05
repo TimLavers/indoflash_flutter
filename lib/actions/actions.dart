@@ -58,3 +58,11 @@ class ToggleShuffle extends StateSwitchAction {
   @override
   String toString() => 'ToggleShuffle';
 }
+class ToggleIndonesianFirst extends StateSwitchAction {
+
+  @override
+  AppState invoke(AppState initialState) => initialState.forToggleIndonsianFirst();
+
+  @override
+  String toString() => 'ToggleIndonesianFirst';
+}

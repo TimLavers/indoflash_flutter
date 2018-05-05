@@ -69,5 +69,11 @@ void main() {
       callback();
       expect(lastAction, isInstanceOf<RepeatList>());
     });
+
+    test('callback for toggle indonesian first', () {
+      VoidCallback callback = model.callbackForToggleIndonesianFirst;
+      callback();
+      expect(lastAction, isInstanceOf<ToggleIndonesianFirst>());
+    });
   });
 }
