@@ -29,6 +29,14 @@ main() {
       expect(state.indonesianFirst, true);
     });
 
+    test('start again', () {
+      WordState state = WordState(3, true).toggleIndonesianFirst();
+      WordState again = state.forStartAgain();
+      expect(again.showDefinition, false);
+      expect(again.index, 0);
+      expect(again.indonesianFirst, false);
+    });
+
     test('for next', () {
       WordState state = WordState.initial();
       WordState forNext = state.forNext();

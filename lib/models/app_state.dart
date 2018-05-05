@@ -52,7 +52,7 @@ class AppState implements Navigation {
   AppState forChapter(int index) {
     ChapterState cs = ChapterState.withIndexedChapter(index);
     WordList wordsRaw = cs.currentWordList.wordList;
-    WordState ws = WordState(0, false); //Start of the list.
+    WordState ws = wordState.forStartAgain(); //Start of the list.
     ListState newListState = ListState(listState.shuffled, false);
     WordList words = listState.shuffled ? wordsRaw.shuffled() : wordsRaw;
     return AppState._copy(cs, ws, newListState, words.words);
@@ -65,22 +65,22 @@ class AppState implements Navigation {
   AppState forListInCurrentChapter(int index) {
     ChapterState cs = chapterState.copyWithIndexedWordList(index);
     WordList wordsRaw = cs.currentWordList.wordList;
-    WordState ws = WordState(0, false); //Start of the list.
+    WordState ws = wordState.forStartAgain();
     ListState ls = ListState(listState.shuffled, false); //Not favourites.
     WordList words = listState.shuffled ? wordsRaw.shuffled() : wordsRaw;
     return AppState._copy(cs, ws, ls, words.words);
   }
 
   AppState forNext() => atEndOfCurrentList()
-      ? AppState._copy(chapterState, WordState.initial(), listState, _words)
+      ? AppState._copy(chapterState, wordState.forStartAgain(), listState, _words)
       : AppState._copy(chapterState, wordState.forNext(), listState, _words);
 
   AppState forRepeat() {
     if (listState.shuffled) {
-      return AppState._copy(chapterState, WordState(0, false), listState,
+      return AppState._copy(chapterState, wordState.forStartAgain(), listState,
           WordList.fromList(_words).shuffled().words);
     }
-    return AppState._copy(chapterState, WordState(0, false), listState, _words);
+    return AppState._copy(chapterState, wordState.forStartAgain(), listState, _words);
   }
 
   AppState forToggleShuffle() {
@@ -93,7 +93,7 @@ class AppState implements Navigation {
       newList = _currentWordList.wordList.shuffled().words;
     }
     //We go back to the beginning of the list.
-    WordState start = WordState(0, false);
+    WordState start = wordState.forStartAgain();
     return AppState._copy(chapterState, start, newListState, newList);
   }
 
@@ -183,6 +183,8 @@ class WordState {
         this.indonesianFirst = true;//todo remove this method
 
   WordState._copy(this.index, this.showDefinition, this.indonesianFirst);
+
+  WordState forStartAgain() => WordState._copy(0, false, this.indonesianFirst);//todo test
 
   WordState toggleShowDefinition() => WordState._copy(index, !showDefinition, indonesianFirst);
 

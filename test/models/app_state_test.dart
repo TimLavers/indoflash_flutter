@@ -73,12 +73,21 @@ main() {
       expect(state1.chapterState, ChapterState(ch1, wl1Ch1));
       expect(state1.wordState, WordState.initial());
       expect(state1.listState, shuffled);
+      expect(state1.wordState.indonesianFirst, true);
 
       state0 = AppState(chState22, wordState3, false);
       state1 = state0.forChapter(0);
       expect(state1.chapterState, ChapterState(ch1, wl1Ch1));
       expect(state1.wordState, WordState.initial());
       expect(state1.listState, straight);//todo test that favourites is set to false.
+      expect(state1.wordState.indonesianFirst, true);
+    });
+
+    test('change chapter preserves indonesian first', () {
+      AppState state0 = AppState(chState22, wordState3, true);
+      AppState state1 = state0.forToggleIndonsianFirst();
+      AppState state2 = state1.forChapter(0);
+      expect(state2.wordState.indonesianFirst, false);
     });
 
     test('change word list', () {
@@ -93,6 +102,13 @@ main() {
       expect(state1.chapterState, ChapterState(ch2, wl1Ch2));
       expect(state1.wordState, WordState.initial());
       expect(state1.listState, straight);
+    });
+
+    test('change word list preserves indonesian first', () {
+      AppState state0 = AppState(chState22, wordState3, true);
+      AppState state1 = state0.forToggleIndonsianFirst();
+      AppState state2 = state1.forListInCurrentChapter(0);
+      expect(state2.wordState.indonesianFirst, false);
     });
 
     test('next', () {
@@ -111,10 +127,12 @@ main() {
       WordState wordState = WordState(3, false);
       ListState listState = ListState(false, false);
       AppState state = AppState(chapterState, wordState, false);
-      AppState forNext = state.forToggleIndonsianFirst();
-      expect(forNext.chapterState, chapterState);
-      expect(forNext.wordState, wordState.toggleIndonesianFirst());
-      expect(forNext.listState, listState);
+      AppState toggled = state.forToggleIndonsianFirst();
+      expect(toggled.chapterState, chapterState);
+      expect(toggled.wordState.indonesianFirst, false);//go to the start of the list
+      expect(toggled.wordState.showDefinition, false);//go to the start of the list
+      expect(toggled.wordState.index, 0);//go to the start of the list
+      expect(toggled.listState, listState);
     });
 
     test('next limits', () {
@@ -153,12 +171,21 @@ main() {
       expect(repeated.chapterState, chapterState);
       expect(repeated.wordState, WordState(0, false));
       expect(repeated.listState, straight);
+      expect(repeated.wordState.indonesianFirst, true);
 
       state = AppState(chapterState, WordState(5, true), false);
       repeated = state.forRepeat();
       expect(repeated.chapterState, chapterState);
       expect(repeated.wordState, WordState(0, false));
       expect(repeated.listState, straight);
+    });
+
+    test('repeat preserves indonesian first', () {
+      ChapterState chapterState = ChapterState(ch1, wl1Ch1);
+      AppState state = AppState(chapterState, WordState(3, false), false);
+      AppState toggled = state.forToggleIndonsianFirst();
+      AppState repeated = toggled.forRepeat();
+      expect(repeated.wordState.indonesianFirst, false);
     });
 
     test('repeat shuffled', () {
@@ -181,9 +208,18 @@ main() {
       expect(toggledOnce.chapterState, chapterState);
       expect(toggledOnce.wordState, WordState(0, false));
       expect(toggledOnce.listState.shuffled, true);
+      expect(toggledOnce.wordState.indonesianFirst, true);
       checkThatStatesHaveDifferentWordTraversalOrderButShareWordsFromList(state, toggledOnce, chapterState);
       AppState toggledTwice = toggledOnce.forToggleShuffle();
       checkThatWordsAreInStraightOrder(toggledTwice, chapterState);
+    });
+
+    test('toggle shuffled preserves indonesian first', () {
+      ChapterState chapterState = ChapterState(ch1, wl1Ch1);
+      AppState state = AppState(chapterState, WordState.initial(), false);
+      AppState toggledOnce = state.forToggleIndonsianFirst();
+      AppState toggledTwice = toggledOnce.forToggleShuffle();
+      expect(toggledTwice.wordState.indonesianFirst, false);
     });
 
     test('toggle shuffled from shuffled', () {
