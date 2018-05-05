@@ -28,6 +28,7 @@ class ChapterSelector extends StatelessWidget {
                           index),
                   itemCount: model.length),
               bottomNavigationBar: BottomNavigationBar(
+                  fixedColor: Colors.black,
                   onTap: (int index) {
                     if (index == 0) {
                       Navigator.pushNamed(context, mainScreen);

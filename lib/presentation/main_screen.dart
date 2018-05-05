@@ -8,8 +8,9 @@ import 'package:flutter_app2/vocab/word.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-const WORD_LIST_SELECTOR = 'Word List Selector';
-const MAIN_SCREEN = 'IndoFlash';
+const WORD_LIST_SELECTOR = 'List Selector';
+const INDO_FLASH = 'IndoFlash';
+const MAIN_SCREEN = 'Words';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -18,6 +19,7 @@ class MainScreen extends StatelessWidget {
       converter: (Store<AppState> store) => MainScreenModel(store),
       builder: (BuildContext context, MainScreenModel model) => Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: Row(
                 children: [
                   Container(
@@ -28,7 +30,7 @@ class MainScreen extends StatelessWidget {
                           height: 36.0,
                           width: 36.0)),
                   Container(
-                      child: Text(MAIN_SCREEN,
+                      child: Text(INDO_FLASH,
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 28.0,
@@ -61,19 +63,30 @@ class MainScreen extends StatelessWidget {
                           model.word, model.wordState.showDefinition),
                       alignment: Alignment.topLeft,
                     )),
+                Row(
+                  children: <Widget>[
+                    FlatButton(
+                      child: Icon(Icons.arrow_upward),
+                      onPressed: () {},
+                    ),
+                    FlatButton(
+                      child: Icon(Icons.favorite),
+                      onPressed: () {},
+                    ),
+                    shuffleToggleButton(model.state.listState, model.callbackForShuffleToggle),
+                  ],
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Row(
-                    children: <Widget>[
-                      _ListNavigator(model),
-                      ShuffleToggleButton(
-                          model.state.listState, model.callbackForShuffleToggle)
-                    ],
-                  ),
                 )
               ],
             ),
-            bottomNavigationBar: new BottomNavigationBar(
+            floatingActionButton: ListNavigator(
+                    model.state, model.callbackForNext, model.callbackForRepeat)
+                .button(),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            bottomNavigationBar: BottomNavigationBar(
+                fixedColor: Colors.black,
                 onTap: (int index) {
                   if (index == 0) {
                     Navigator.pushNamed(context, listSelector);
@@ -90,17 +103,24 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class _ListNavigator extends StatelessWidget {
-  final MainScreenModel _model;
+class ListNavigator {
+  final Navigation _state;
+  final VoidCallback _nextCallback;
+  final VoidCallback _repeatCallback;
 
-  const _ListNavigator(this._model);
+  const ListNavigator(this._state, this._nextCallback, this._repeatCallback);
 
-  @override
-  Widget build(BuildContext context) {
-    if (_model.state.atEndOfCurrentList) {
-      return RepeatListButton(_model.callbackForRepeat);
+  FloatingActionButton button() {
+    if (_state.atEndOfCurrentList()) {
+      return FloatingActionButton(
+          key: navigateListButtonKey,
+          child: Icon(Icons.repeat),
+          onPressed: _repeatCallback);
     } else {
-      return ShowOrNextButton(_model.wordState, _model.callbackForNext);
+      return FloatingActionButton(
+          key: navigateListButtonKey,
+          child: Icon(Icons.play_arrow),
+          onPressed: _nextCallback);
     }
   }
 }
@@ -134,53 +154,12 @@ class WordDisplay extends StatelessWidget {
       ));
 }
 
-class ShowOrNextButton extends StatelessWidget {
-  final WordState _wordState;
-  final VoidCallback _callback;
-
-  const ShowOrNextButton(this._wordState, this._callback);
-
-  @override
-  Widget build(BuildContext context) => RaisedButton(
-        onPressed: _callback,
-        child: Text(_buttonText, key: showOrNextButtonKey),
-      );
-
-  String get _buttonText => _wordState.showDefinition ? 'Next' : 'Show';
-}
-
-class ShuffleToggleButton extends StatelessWidget {
-  final ListState _listState;
-  final VoidCallback _callback;
-
-  const ShuffleToggleButton(this._listState, this._callback);
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-        key: shuffleToggleButtonKey, onPressed: _callback, child: _image);
-  }
-
-  Image get _image {
-    AssetImage assetImage = _listState.shuffled
-        ? AssetImage('images/ic_unshuffle.png')
-        : AssetImage('images/ic_shuffle.png');
-    return Image(image: assetImage, height: 24.0, width: 24.0);
-  }
-
-  String get _buttonText => _listState.shuffled ? 'Order' : 'Shuffle';
-}
-
-class RepeatListButton extends StatelessWidget {
-  final VoidCallback _callback;
-
-  const RepeatListButton(this._callback);
-
-  @override
-  Widget build(BuildContext context) => RaisedButton(
-        onPressed: _callback,
-        child: Text('Repeat List', key: repeateListButtonKey),
-      );
+FlatButton shuffleToggleButton(ListState listState, VoidCallback callback) {
+  IconData iconToUse = listState.shuffled ? Icons.straighten : Icons.shuffle;
+  return FlatButton(
+      key: shuffleToggleButtonKey,
+      child: Icon(iconToUse),
+      onPressed: callback);
 }
 
 class MainScreenModel {

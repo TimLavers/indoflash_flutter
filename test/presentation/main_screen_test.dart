@@ -62,17 +62,17 @@ void main() {
   testWidgets('show next', (WidgetTester tester) async {
     final widget = createMainScreen(initialStateStore);
     await tester.pumpWidget(widget);
-    expect(find.byKey(repeateListButtonKey).evaluate().isEmpty, true);
-    await tester.tap(find.byKey(showOrNextButtonKey));
+    checkIconForFloatingActionButton(navigateListButtonKey, tester, Icons.play_arrow);
+    await tester.tap(find.byKey(navigateListButtonKey));
     expect(lastAction, isInstanceOf<WordNext>());
   });
 
   testWidgets('repeat list', (WidgetTester tester) async {
-    expect(endOfListStore.state.atEndOfCurrentList, true); //sanity
+    expect(endOfListStore.state.atEndOfCurrentList(), true); //sanity
     final widget = createMainScreen(endOfListStore);
     await tester.pumpWidget(widget);
-    expect(find.byKey(showOrNextButtonKey).evaluate().isEmpty, true);
-    await tester.tap(find.byKey(repeateListButtonKey));
+    checkIconForFloatingActionButton(navigateListButtonKey, tester, Icons.repeat);
+    await tester.tap(find.byKey(navigateListButtonKey));
     expect(lastAction, isInstanceOf<RepeatList>());
   });
 
@@ -93,7 +93,7 @@ void main() {
         tester.state<NavigatorState>(find.byType(Navigator));
     expect(navigator.canPop(), false);
 
-    var byKey = find.byIcon(Icons.add_call);
+    var byKey = find.byIcon(Icons.list);
     await tester.tap(byKey);
 
     expect(navigator.canPop(), true);

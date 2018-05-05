@@ -129,7 +129,7 @@ main() {
       expect(next.wordState.showDefinition, true);
 
       //Tip it over the edge.
-      expect(next.atEndOfCurrentList, true);//sanity
+      expect(next.atEndOfCurrentList(), true);//sanity
       next = next.forNext();
       expect(next.wordState.index, 0);
       expect(next.wordState.showDefinition, false);
@@ -191,20 +191,20 @@ main() {
       for (int i = 0; i < listSize - 2; i++) {
         WordState wordState = WordState(i, false);
         AppState state = AppState(chapterState, wordState, false);
-        expect(state.atEndOfCurrentList, false);
+        expect(state.atEndOfCurrentList(), false);
 
         wordState = WordState(i, true);
         state = AppState(chapterState, wordState, false);
-        expect(state.atEndOfCurrentList, false);
+        expect(state.atEndOfCurrentList(), false);
       }
       //At end, but still to display the definition.
       WordState wordState = WordState(listSize - 1, false);
       AppState state = AppState(chapterState, wordState, false);
-      expect(state.atEndOfCurrentList, false);
+      expect(state.atEndOfCurrentList(), false);
 
       wordState = WordState(listSize - 1, true);
       state = AppState(chapterState, wordState, false);
-      expect(state.atEndOfCurrentList, true);
+      expect(state.atEndOfCurrentList(), true);
     });
 
     test('current word list title', () {

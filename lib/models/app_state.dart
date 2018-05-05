@@ -7,6 +7,10 @@ import 'package:meta/meta.dart';
 typedef void ChapterSelected(int index);
 typedef void WordListSelected(int index);
 
+abstract class Navigation {
+  bool atEndOfCurrentList();
+}
+
 /// The state of the application. This consists of the chapter,
 /// the word list, the index of the currently showing word,
 /// and so on. The state is broken into sub-objects.
@@ -17,7 +21,7 @@ typedef void WordListSelected(int index);
 /// not contain any information that is not derived
 /// from the other data.
 @immutable
-class AppState {
+class AppState implements Navigation {
   final ChapterState chapterState;
   final WordState wordState;
   final ListState listState;
@@ -67,7 +71,7 @@ class AppState {
     return AppState._copy(cs, ws, ls, words.words);
   }
 
-  AppState forNext() => atEndOfCurrentList
+  AppState forNext() => atEndOfCurrentList()
       ? AppState._copy(chapterState, WordState.initial(), listState, _words)
       : AppState._copy(chapterState, wordState.forNext(), listState, _words);
 
@@ -88,9 +92,6 @@ class AppState {
     if (newListState.shuffled) {
       newList = _currentWordList.wordList.shuffled().words;
     }
-//    List<Word> newList = newListState.shuffled ?
-//    _currentWordList.wordList.shuffled().words :
-//    _currentWordList.wordList.words;
     //We go back to the beginning of the list.
     WordState start = WordState(0, false);
     return AppState._copy(chapterState, start, newListState, newList);
@@ -108,7 +109,8 @@ class AppState {
 
   ApplicationSpec get applicationSpec => chapterState.applicationSpec;
 
-  bool get atEndOfCurrentList =>
+  @override
+  bool atEndOfCurrentList() =>
       wordState.index == (_lengthOfCurrentWordList - 1) &&
       wordState.showDefinition;
 

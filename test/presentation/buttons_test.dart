@@ -30,12 +30,12 @@ void main() {
     expect(itemPressed, 0);
 
     //Find and tap the word lists button.
-    byKey = find.byIcon(Icons.add_call);
+    byKey = find.byIcon(Icons.list);
     await tester.tap(byKey);
     expect(itemPressed, 1);
 
     //Find and tap the chapter lists button.
-    byKey = find.byIcon(Icons.featured_video);
+    byKey = find.byIcon(Icons.folder);
     await tester.tap(byKey);
     expect(itemPressed, 2);
   });

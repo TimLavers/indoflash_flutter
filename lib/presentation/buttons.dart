@@ -10,12 +10,12 @@ BottomNavigationBarItem createHomeNavigationButton() =>
 
 BottomNavigationBarItem createWordListNavigationButton() =>
     BottomNavigationBarItem(
-        icon: Icon(Icons.add_call),
+        icon: Icon(Icons.list),
         title: Text(WORD_LIST_SELECTOR)
     );
 
 BottomNavigationBarItem createChapterListNavigationButton() =>
     BottomNavigationBarItem(
-        icon: Icon(Icons.featured_video),
+        icon: Icon(Icons.folder),
         title: Text(CHAPTER_SELECTOR)
     );

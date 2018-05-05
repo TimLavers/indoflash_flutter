@@ -9,12 +9,12 @@ import 'utils.dart';
 void main() {
   var clickCount = 0;
   createUI(ListState listState) =>
-      MaterialApp(home: ShuffleToggleButton(listState, () => clickCount++));
+      MaterialApp(home: shuffleToggleButton(listState, () => clickCount++));
 
-  testWidgets('ShuffleToggleButton', (WidgetTester tester) async {
+  testWidgets('shuffled', (WidgetTester tester) async {
     var widget = createUI(ListState(true, true));
     await tester.pumpWidget(widget);
-    expect(iconForKey(shuffleToggleButtonKey), 'images/ic_unshuffle.png');
+    checkIconForFlatButton(shuffleToggleButtonKey, tester, Icons.straighten);
     expect(clickCount, 0);
     //Check that tapping the button activates the callback.
     await tester.tap(find.byKey(shuffleToggleButtonKey));
@@ -24,13 +24,13 @@ void main() {
     expect(clickCount, 2);
   });
 
-  testWidgets('Display true', (WidgetTester tester) async {
+  testWidgets('straight', (WidgetTester tester) async {
     clickCount = 0;
     //Check that the text is 'Next' if constructed
     //with true for showDefinition
     var widget = createUI(ListState(false, false));
     await tester.pumpWidget(widget);
-    expect(iconForKey(shuffleToggleButtonKey), 'images/ic_shuffle.png');
+    checkIconForFlatButton(shuffleToggleButtonKey, tester, Icons.shuffle);
     expect(clickCount, 0);
     //Check that tapping the button activates the callback.
     await tester.tap(find.byKey(shuffleToggleButtonKey));
