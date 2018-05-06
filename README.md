@@ -1,8 +1,7 @@
-# flutter_app2
+# IndoFlash: Flutter implementation
 
-Another Flutter application.
+The IndoFlash Application, implemented in Flutter, using a Redux framework.
+
 
 ## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](http://flutter.io/).
+To be done.

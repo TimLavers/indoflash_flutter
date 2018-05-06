@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/keys/keys.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 String textForKey(Key key) {
-  var byKey = find.byKey(key);
-  StatelessElement element = (byKey.evaluate().first as StatelessElement);
-  var build = element.build();
-  RichText richText = build as RichText;
+  var root = find.byKey(key).evaluate();
+  StatelessElement element = (root.first as StatelessElement);
+  RichText richText = element.build() as RichText;
   return richText.text.text;
 }
 

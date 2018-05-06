@@ -104,12 +104,12 @@ main() {
       expect(state1.listState, straight);
     });
 
-    test('change word list preserves indonesian first', () {
-      AppState state0 = AppState(chState22, wordState3, true);
-      AppState state1 = state0.forToggleIndonsianFirst();
-      AppState state2 = state1.forListInCurrentChapter(0);
-      expect(state2.wordState.indonesianFirst, false);
-    });
+test('change word list preserves indonesian first', () {
+  AppState state0 = AppState(chState22, wordState3, true);
+  AppState state1 = state0.forToggleIndonsianFirst();
+  AppState state2 = state1.forListInCurrentChapter(0);
+  expect(state2.wordState.indonesianFirst, false);
+});
 
     test('next', () {
       ChapterState chapterState = ChapterState(ch1, wl1Ch1);
