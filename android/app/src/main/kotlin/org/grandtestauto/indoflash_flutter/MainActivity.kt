@@ -1,4 +1,4 @@
-package org.grandtestauto.flutterapp2
+package org.grandtestauto.indoflash_flutter;
 
 import android.os.Bundle
 
