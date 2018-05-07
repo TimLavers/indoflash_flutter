@@ -7,6 +7,7 @@ import 'test_screen.dart';
 
 
 class MainScreen extends TestScreen {
+  //Note that we can't use Key objects here due to a bug. See http://cogitas.net/write-integration-test-flutter/
   final _listNavigationButton = find.byValueKey('__navigate_list_button__');
   final _indonesianFirstToggleButton = find.byValueKey('__indonesian_first_toggle_button__');
   final _wordArea = find.byValueKey('__word__');
